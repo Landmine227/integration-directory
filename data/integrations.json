@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Actions",
+    "use_case": "Developers use Copilot to write and fix code while Actions automatically runs CI/CD pipelines to test and deploy that code on every commit.",
+    "slug": "github-copilot-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub Codespaces",
+    "tool_b": "GitHub Copilot",
+    "use_case": "Teams launch instant cloud-based development environments in Codespaces with Copilot embedded, enabling AI-assisted coding from any browser without local setup.",
+    "slug": "github-codespaces-to-github-copilot-integration"
+  },
+  {
+    "tool_a": "GitHub Issues",
+    "tool_b": "GitHub Projects",
+    "use_case": "Teams create and track bugs or feature requests in Issues and visualize them on kanban boards and roadmaps in Projects to manage sprint and release planning.",
+    "slug": "github-issues-to-github-projects-integration"
+  },
+  {
+    "tool_a": "GitHub Advanced Security",
+    "tool_b": "GitHub Actions",
+    "use_case": "Security scanning runs automatically inside Actions CI/CD pipelines to detect vulnerabilities and leaked secrets before code is merged into production.",
+    "slug": "github-advanced-security-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Marketplace",
+    "use_case": "Development teams extend Copilot's capabilities by connecting third-party tools and AI models from the Marketplace to customize their AI-assisted coding workflows.",
+    "slug": "github-copilot-to-github-marketplace-integration"
+  }
+]
