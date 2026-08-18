@@ -4,67 +4,246 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B2B Integration Middleware Registry</title>
-    <script src="https://jsdelivr.net"></script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans">
+    <style>
+        /* Classic Corporate Information Architecture Typography */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #24292f;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
 
-    <main class="max-w-4xl mx-auto py-12 px-4">
-        <header class="mb-12 border-b border-slate-200 pb-6">
-            <h1 class="text-3xl font-bold text-slate-900 tracking-tight">
-                B2B Integration Middleware Registry
-            </h1>
-            <p class="text-slate-600 mt-2">
-                Automated live monitoring of custom webhook connectors and automation bridges.
-            </p>
+        /* Classic Directory Header Layout (Early Documentation Style) */
+        header {
+            padding: 32px;
+            border-bottom: 1px solid #d0d7de;
+            background-color: #f6f8fa;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        h1 {
+            font-family: "Georgia", Times, serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #57606a;
+            margin: 0;
+        }
+
+        /* Clean High-Density List Layout */
+        .directory-list {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Row Dividers for Rapid Search Engine Scannability */
+        .row-item {
+            padding: 28px 32px;
+            border-bottom: 1px solid #d0d7de;
+            background: #ffffff;
+        }
+        
+        .row-item:last-child {
+            border-bottom: none;
+        }
+
+        .row-item:hover {
+            background-color: #fcfcfc;
+        }
+
+        /* Monospace Technical Connectors to Match Search Keywords */
+        .connector-badge {
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: #0969da;
+            background-color: #ddf4ff;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 12px;
+            border: 1px solid rgba(9, 105, 218, 0.2);
+        }
+
+        .row-title {
+            font-family: "Georgia", Times, serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: #24292f;
+            margin: 0 0 8px 0;
+        }
+
+        .row-desc {
+            font-size: 14px;
+            color: #57606a;
+            margin: 0 0 16px 0;
+            max-width: 680px;
+        }
+
+        /* Non-Technical Package Deliverables Block */
+        .package-specs {
+            font-size: 13px;
+            color: #24292f;
+            margin-bottom: 16px;
+            background-color: #fafafa;
+            border: 1px solid #e1e4e8;
+            padding: 12px 16px;
+            border-radius: 4px;
+        }
+
+        .package-title {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #57606a;
+            letter-spacing: 0.5px;
+        }
+
+        .package-line {
+            margin-bottom: 4px;
+        }
+        
+        .package-line:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Utility Footer Block Inside Every Row */
+        .row-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fafafa;
+            border: 1px solid #e1e4e8;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 12px;
+        }
+
+        .status-indicator {
+            font-size: 12px;
+            font-weight: 500;
+            color: #1a7f37;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #1a7f37;
+            border-radius: 50%;
+        }
+
+        /* High-Contrast Corporate Action Button (Legacy Stripe style) */
+        .action-btn {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #24292f;
+            border: 1px solid rgba(27, 31, 36, 0.15);
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 1px 0 rgba(27, 31, 35, 0.1);
+        }
+
+        .action-btn:hover {
+            background-color: #2c333a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>B2B Integration Middleware Registry</h1>
+            <p class="subtitle">Automated live monitoring of custom webhook connectors and automation bridges.</p>
         </header>
 
-        <div id="directory-list" class="space-y-4">
-            <p class="text-slate-500 italic">Loading live automation streams...</p>
+        <div id="directory-list" class="directory-list">
+            <div class="row-item">
+                <p style="color: #57606a; font-style: italic; font-size: 14px; margin: 0;">Loading live registry index...</p>
+            </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        // Dynamically fetch the json file updated by your n8n workflow
+        // Dynamically fetch and parse the B2B dataset managed by your n8n workflow
         fetch('./data/integrations.json')
             .then(res => res.json())
             .then(data => {
                 const container = document.getElementById('directory-list');
-                container.innerHTML = ''; // Clear loading text
+                container.innerHTML = ''; // Wipe loading placeholder
 
                 if (!data || data.length === 0) {
-                    container.innerHTML = '<p class="text-slate-500 italic">Awaiting first automated data sync stream...</p>';
+                    container.innerHTML = `
+                        <div class="row-item">
+                            <p style="color:#57606a; font-style:italic; font-size:14px; margin:0;">
+                                Awaiting first automated corporate data sync stream...
+                            </p>
+                        </div>`;
                     return;
                 }
 
                 data.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "p-6 border border-slate-200 rounded-xl bg-white shadow-sm hover:border-blue-500 transition-colors";
-                    card.innerHTML = `
-                        <div class="flex items-center gap-2 text-sm font-semibold text-blue-600 mb-2">
-                            <span>${item.tool_a}</span>
-                            <span class="text-slate-400">➔</span>
-                            <span>${item.tool_b}</span>
-                        </div>
-                        <h2 class="text-xl font-bold text-slate-800 capitalize mb-2">
-                            ${item.tool_a} to ${item.tool_b} Data Bridge
-                        </h2>
-                        <p class="text-slate-600 text-sm mb-4">${item.use_case}</p>
+                    const row = document.createElement('div');
+                    row.className = "row-item";
+                    row.innerHTML = `
+                        <div class="connector-badge">${item.tool_a} ➔ ${item.tool_b}</div>
+                        <h2 class="row-title">${item.tool_a} to ${item.tool_b} Secure Data Sync Pipeline</h2>
+                        <p class="row-desc">${item.use_case} Fully mapped blueprint designed for operations, sales, and marketing managers to bridge data silos without writing code.</p>
                         
-                        <div class="flex items-center justify-between border-t border-slate-100 pt-4 mt-4 bg-slate-50 -mx-6 -mb-6 p-4 rounded-b-xl">
-                            <span class="text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded">
-                                ● Connected Live Stream
-                            </span>
-                            <button class="text-xs font-semibold text-white bg-blue-600 px-3 py-1.5 rounded-md hover:bg-blue-700 cursor-pointer">
-                                Unlock Live Sync Template ($49/mo)
+                        <div class="package-specs">
+                            <span class="package-title">What is included in this pipeline package:</span>
+                            <div class="package-line">• 1-Click Copy & Paste visual n8n workflow blueprint</div>
+                            <div class="package-line">• Plain-English field mapping guide (No-code configuration steps)</div>
+                            <div class="package-line">• Automated error handling & data loss protection filters</div>
+                        </div>
+
+                        <div class="row-footer">
+                            <div class="status-indicator">
+                                <div class="status-dot"></div>
+                                <span>Verified No-Code Schema Active</span>
+                            </div>
+                            <button class="action-btn" onclick="alert('Payment processing loop placeholder.')">
+                                Get Sync Template & Guide ($49/mo)
                             </button>
                         </div>
                     `;
-                    container.appendChild(card);
+                    container.appendChild(row);
                 });
             })
             .catch(err => {
-                console.error(err);
-                document.getElementById('directory-list').innerHTML = '<p class="text-red-500">Error rendering automated data layer.</p>';
+                console.error("Error executing data render:", err);
+                document.getElementById('directory-list').innerHTML = `
+                    <div class="row-item">
+                        <p style="color:#cf222e; font-size:14px; margin:0;">
+                            Error loading live registry schema. Check JSON syntax integrity.
+                        </p>
+                    </div>`;
             });
     </script>
 </body>
