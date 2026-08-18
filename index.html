@@ -3,248 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B2B Integration Middleware Registry</title>
+    <title>B2B Systems Middleware Integration Registry</title>
     <style>
-        /* Classic Corporate Information Architecture Typography */
+        /* Premium Enterprise UI Architecture Tokens */
+        :root {
+            --border-light: #e1e4e8;
+            --text-dark: #1f2328;
+            --text-muted: #636c76;
+            --bg-gray: #f6f8fa;
+            --bg-white: #ffffff;
+            --brand-blue: #0969da;
+            --brand-green: #1f883d;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f6f8fa;
-            color: #24292f;
+            font-family: var(--font-stack);
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
             margin: 0;
-            padding: 40px 20px;
+            padding: 0;
             line-height: 1.5;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Classic Directory Header Layout (Early Documentation Style) */
-        header {
-            padding: 32px;
-            border-bottom: 1px solid #d0d7de;
-            background-color: #f6f8fa;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
+        /* Responsive Grid Dashboard Frame */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
         }
 
-        h1 {
-            font-family: "Georgia", Times, serif;
-            font-size: 26px;
+        /* Sidebar Navigation Controls */
+        aside {
+            background-color: var(--bg-white);
+            border-right: 1px solid var(--border-light);
+            padding: 32px 24px;
+        }
+
+        .console-header {
+            margin-bottom: 32px;
+        }
+
+        .brand-text {
+            font-size: 16px;
             font-weight: 700;
             color: #000000;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            font-size: 14px;
-            color: #57606a;
+            letter-spacing: -0.3px;
             margin: 0;
         }
 
-        /* Clean High-Density List Layout */
-        .directory-list {
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Row Dividers for Rapid Search Engine Scannability */
-        .row-item {
-            padding: 28px 32px;
-            border-bottom: 1px solid #d0d7de;
-            background: #ffffff;
-        }
-        
-        .row-item:last-child {
-            border-bottom: none;
-        }
-
-        .row-item:hover {
-            background-color: #fcfcfc;
-        }
-
-        /* Monospace Technical Connectors to Match Search Keywords */
-        .connector-badge {
-            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-            font-size: 12px;
+        .brand-tag {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
             font-weight: 600;
-            color: #0969da;
-            background-color: #ddf4ff;
-            padding: 3px 8px;
-            border-radius: 3px;
-            display: inline-block;
-            margin-bottom: 12px;
-            border: 1px solid rgba(9, 105, 218, 0.2);
+            margin-top: 4px;
         }
 
-        .row-title {
-            font-family: "Georgia", Times, serif;
-            font-size: 19px;
-            font-weight: 700;
-            color: #24292f;
-            margin: 0 0 8px 0;
-        }
-
-        .row-desc {
-            font-size: 14px;
-            color: #57606a;
-            margin: 0 0 16px 0;
-            max-width: 680px;
-        }
-
-        /* Non-Technical Package Deliverables Block */
-        .package-specs {
-            font-size: 13px;
-            color: #24292f;
-            margin-bottom: 16px;
-            background-color: #fafafa;
-            border: 1px solid #e1e4e8;
-            padding: 12px 16px;
-            border-radius: 4px;
-        }
-
-        .package-title {
-            display: block;
-            margin-bottom: 6px;
+        .rail-section {
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            color: #57606a;
+            color: var(--text-muted);
             letter-spacing: 0.5px;
+            margin: 28px 0 12px 0;
         }
 
-        .package-line {
+        .rail-link {
+            display: block;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: #444c56;
+            text-decoration: none;
+            border-radius: 6px;
             margin-bottom: 4px;
-        }
-        
-        .package-line:last-child {
-            margin-bottom: 0;
+            cursor: pointer;
+            transition: all 0.15s ease;
         }
 
-        /* Utility Footer Block Inside Every Row */
-        .row-footer {
+        .rail-link.active, .rail-link:hover {
+            background-color: var(--bg-gray);
+            color: var(--brand-blue);
+            font-weight: 600;
+        }
+
+        /* Main Workspace Panel */
+        main {
+            padding: 40px 56px;
+            max-width: 1100px;
+            box-sizing: border-box;
+        }
+
+        /* Enterprise Search Console Bar */
+        .search-wrapper {
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background-color: var(--bg-white);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        /* Dynamic Catalog Grid Space */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        /* Premium Platform Product Cards */
+        .app-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .app-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-color: #8cbbff;
+        }
+
+        /* Software Connectivity Badging */
+        .card-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #fafafa;
-            border: 1px solid #e1e4e8;
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-top: 12px;
+            margin-bottom: 16px;
         }
 
-        .status-indicator {
-            font-size: 12px;
-            font-weight: 500;
-            color: #1a7f37;
+        .app-icons {
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background-color: #1a7f37;
-            border-radius: 50%;
+        .app-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background-color: var(--bg-gray);
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--brand-blue);
         }
 
-        /* High-Contrast Corporate Action Button (Legacy Stripe style) */
-        .action-btn {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        .avatar-arrow {
             font-size: 12px;
-            font-weight: 600;
-            color: #ffffff;
-            background-color: #24292f;
-            border: 1px solid rgba(27, 31, 36, 0.15);
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 1px 0 rgba(27, 31, 35, 0.1);
+            color: var(--text-muted);
+            font-weight: 700;
         }
 
-        .action-btn:hover {
+        .trust-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--brand-green);
+            background-color: #dafbe1;
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(31, 136, 61, 0.15);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: var(--text-dark);
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0 0 20px 0;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--bg-gray);
+            padding-top: 16px;
+        }
+
+        .pricing-text {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .pricing-span {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .explore-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brand-blue);
+        }
+
+        /* sliding Console detail panel Drawer Layer */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            z-index: 100;
+        }
+
+        .drawer-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drawer-panel {
+            position: fixed;
+            top: 0;
+            right: -460px;
+            bottom: 0;
+            width: 460px;
+            background: var(--bg-white);
+            box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+            z-index: 101;
+            transition: right 0.25s ease;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .drawer-panel.open {
+            right: 0;
+        }
+
+        .close-drawer {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .drawer-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 16px 0 8px 0;
+        }
+
+        .spec-box {
+            background-color: var(--bg-gray);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+
+        .spec-header {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .spec-item {
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spec-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .purchase-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--text-dark);
+            color: var(--bg-white);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+            display: block;
+            text-decoration: none;
+        }
+
+        .purchase-btn:hover {
             background-color: #2c333a;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>B2B Integration Middleware Registry</h1>
-            <p class="subtitle">Automated live monitoring of custom webhook connectors and automation bridges.</p>
-        </header>
-
-        <div id="directory-list" class="directory-list">
-            <div class="row-item">
-                <p style="color: #57606a; font-style: italic; font-size: 14px; margin: 0;">Loading live registry index...</p>
+    <div class="dashboard-container">
+        <!-- Dashboard Navigation Rails -->
+        <aside>
+            <div class="console-header">
+                <h1 class="brand-text">Middleware Engine</h1>
+                <div class="brand-tag">Registry Workspace</div>
             </div>
-        </div>
-    </div>
-
-    <script>
-        // Dynamically fetch and parse the B2B dataset managed by your n8n workflow
-        fetch('./data/integrations.json')
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('directory-list');
-                container.innerHTML = ''; // Wipe loading placeholder
-
-                if (!data || data.length === 0) {
-                    container.innerHTML = `
-                        <div class="row-item">
-                            <p style="color:#57606a; font-style:italic; font-size:14px; margin:0;">
-                                Awaiting first automated corporate data sync stream...
-                            </p>
-                        </div>`;
-                    return;
-                }
-
-                data.forEach(item => {
-                    const row = document.createElement('div');
-                    row.className = "row-item";
-                    row.innerHTML = `
-                        <div class="connector-badge">${item.tool_a} ➔ ${item.tool_b}</div>
-                        <h2 class="row-title">${item.tool_a} to ${item.tool_b} Secure Data Sync Pipeline</h2>
-                        <p class="row-desc">${item.use_case} Fully mapped blueprint designed for operations, sales, and marketing managers to bridge data silos without writing code.</p>
-                        
-                        <div class="package-specs">
-                            <span class="package-title">What is included in this pipeline package:</span>
-                            <div class="package-line">• 1-Click Copy & Paste visual n8n workflow blueprint</div>
-                            <div class="package-line">• Plain-English field mapping guide (No-code configuration steps)</div>
-                            <div class="package-line">• Automated error handling & data loss protection filters</div>
-                        </div>
-
-                        <div class="row-footer">
-                            <div class="status-indicator">
-                                <div class="status-dot"></div>
-                                <span>Verified No-Code Schema Active</span>
-                            </div>
-                            <button class="action-btn" onclick="alert('Payment processing loop placeholder.')">
-                                Get Sync Template & Guide ($49/mo)
-                            </button>
-                        </div>
-                    `;
-                    container.appendChild(row);
-                });
-            })
-            .catch(err => {
-                console.error("Error executing data render:", err);
-                document.getElementById('directory-list').innerHTML = `
-                    <div class="row-item">
-                        <p style="color:#cf222e; font-size:14px; margin:0;">
-                            Error loading live registry schema. Check JSON syntax integrity.
-                        </p>
-                    </div>`;
-            });
-    </script>
-</body>
-</html>
+            
+            <div class="rail-section">Navigation</div>
+            <div class="rail-link active" onclick="filterCategory('all')">All Direct Connections</div>
+            
+            <div class="rail-section">System Class Filters</div>
+            <div class="rail-link" onclick="filterCategory('crm')">CRM Databases</div>
+            <div class="rail-link" onclick="filterCategory('marketing')">Marketing Automation</div>
+            <div class="rail-link" onclick="filterCategory('payments')">Payment Ledger Gateways</div>
