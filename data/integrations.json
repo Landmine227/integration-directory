@@ -2,31 +2,31 @@
   {
     "tool_a": "GitHub Copilot",
     "tool_b": "GitHub Actions",
-    "use_case": "Developers use Copilot to write and fix code while Actions automatically runs CI/CD pipelines to test and deploy that code on every commit.",
+    "use_case": "Developers use GitHub Copilot to write and fix code while GitHub Actions automates CI/CD pipelines to build, test, and deploy that code on every commit.",
     "slug": "github-copilot-to-github-actions-integration"
   },
   {
     "tool_a": "GitHub Codespaces",
-    "tool_b": "GitHub Copilot",
-    "use_case": "Teams launch instant cloud-based development environments in Codespaces with Copilot embedded, enabling AI-assisted coding from any browser without local setup.",
-    "slug": "github-codespaces-to-github-copilot-integration"
+    "tool_b": "GitHub Actions",
+    "use_case": "Teams launch instant cloud-based dev environments via Codespaces and trigger automated build and test workflows through GitHub Actions to validate changes before merge.",
+    "slug": "github-codespaces-to-github-actions-integration"
   },
   {
     "tool_a": "GitHub Issues",
     "tool_b": "GitHub Projects",
-    "use_case": "Teams create and track bugs or feature requests in Issues and visualize them on kanban boards and roadmaps in Projects to manage sprint and release planning.",
+    "use_case": "Teams track bugs and feature requests in GitHub Issues and organize them into roadmaps and sprint boards in GitHub Projects to maintain visibility across the development lifecycle.",
     "slug": "github-issues-to-github-projects-integration"
   },
   {
     "tool_a": "GitHub Advanced Security",
     "tool_b": "GitHub Actions",
-    "use_case": "Security scanning runs automatically inside Actions CI/CD pipelines to detect vulnerabilities and leaked secrets before code is merged into production.",
+    "use_case": "GitHub Advanced Security scans code for vulnerabilities on every pull request triggered by GitHub Actions, enabling automated security enforcement before code is merged.",
     "slug": "github-advanced-security-to-github-actions-integration"
   },
   {
     "tool_a": "GitHub Copilot",
-    "tool_b": "GitHub Marketplace",
-    "use_case": "Development teams extend Copilot's capabilities by connecting third-party tools and AI models from the Marketplace to customize their AI-assisted coding workflows.",
-    "slug": "github-copilot-to-github-marketplace-integration"
+    "tool_b": "GitHub Code Review",
+    "use_case": "Copilot performs an initial automated code review on pull requests, surfacing suggestions and flagging issues before human reviewers step in to finalize approval.",
+    "slug": "github-copilot-to-github-code-review-integration"
   }
 ]
