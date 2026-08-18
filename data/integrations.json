@@ -2,31 +2,181 @@
   {
     "tool_a": "GitHub Copilot",
     "tool_b": "GitHub Actions",
-    "use_case": "Developers use GitHub Copilot to write and fix code while GitHub Actions automates CI/CD pipelines to build, test, and deploy that code on every commit.",
+    "use_case": "Automate CI/CD pipelines with AI-assisted code generation to build, test, and deploy software faster and more reliably.",
     "slug": "github-copilot-to-github-actions-integration"
   },
   {
-    "tool_a": "GitHub Codespaces",
-    "tool_b": "GitHub Actions",
-    "use_case": "Teams launch instant cloud-based dev environments via Codespaces and trigger automated build and test workflows through GitHub Actions to validate changes before merge.",
-    "slug": "github-codespaces-to-github-actions-integration"
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Code Security",
+    "use_case": "Use Copilot Autofix to automatically identify and remediate security vulnerabilities in code during the development lifecycle.",
+    "slug": "github-copilot-to-github-code-security-integration"
+  },
+  {
+    "tool_a": "GitHub Actions",
+    "tool_b": "GitHub Advanced Security",
+    "use_case": "Run automated security scans and enforce security policies as part of every CI/CD workflow to catch vulnerabilities before they reach production.",
+    "slug": "github-actions-to-github-advanced-security-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Codespaces",
+    "use_case": "Launch cloud-based development environments pre-configured with Copilot so developers can start coding instantly from anywhere.",
+    "slug": "github-copilot-to-github-codespaces-integration"
   },
   {
     "tool_a": "GitHub Issues",
     "tool_b": "GitHub Projects",
-    "use_case": "Teams track bugs and feature requests in GitHub Issues and organize them into roadmaps and sprint boards in GitHub Projects to maintain visibility across the development lifecycle.",
+    "use_case": "Link issues directly to project boards to track work, visualize roadmaps, and manage team tasks from planning through delivery.",
     "slug": "github-issues-to-github-projects-integration"
-  },
-  {
-    "tool_a": "GitHub Advanced Security",
-    "tool_b": "GitHub Actions",
-    "use_case": "GitHub Advanced Security scans code for vulnerabilities on every pull request triggered by GitHub Actions, enabling automated security enforcement before code is merged.",
-    "slug": "github-advanced-security-to-github-actions-integration"
   },
   {
     "tool_a": "GitHub Copilot",
     "tool_b": "GitHub Code Review",
-    "use_case": "Copilot performs an initial automated code review on pull requests, surfacing suggestions and flagging issues before human reviewers step in to finalize approval.",
+    "use_case": "Assign initial pull request reviews to Copilot to accelerate code review cycles and improve code quality before human review.",
     "slug": "github-copilot-to-github-code-review-integration"
+  },
+  {
+    "tool_a": "GitHub Advanced Security",
+    "tool_b": "Dependabot",
+    "use_case": "Automatically detect vulnerable dependencies and receive supported pull requests with fixes to keep the software supply chain secure.",
+    "slug": "github-advanced-security-to-dependabot-integration"
+  },
+  {
+    "tool_a": "GitHub Actions",
+    "tool_b": "GitHub Marketplace",
+    "use_case": "Extend CI/CD workflows by installing pre-built actions and integrations from the Marketplace to customize the entire toolchain.",
+    "slug": "github-actions-to-github-marketplace-integration"
+  },
+  {
+    "tool_a": "GitHub Secret Protection",
+    "tool_b": "GitHub Advanced Security",
+    "use_case": "Detect, prevent, and remediate leaked secrets across an organization's repositories using push protection and secret scanning.",
+    "slug": "github-secret-protection-to-github-advanced-security-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Mobile",
+    "use_case": "Manage projects, assign tasks to Copilot agents, and review AI-generated suggestions from a mobile device to maintain momentum on the go.",
+    "slug": "github-copilot-to-github-mobile-integration"
+  },
+  {
+    "tool_a": "GitHub Issues",
+    "tool_b": "GitHub Copilot",
+    "use_case": "Trigger Copilot agents directly from GitHub Issues to autonomously plan, code, and submit pull requests resolving tracked work items.",
+    "slug": "github-issues-to-github-copilot-integration"
+  },
+  {
+    "tool_a": "GitHub Discussions",
+    "tool_b": "GitHub Issues",
+    "use_case": "Convert community discussions into actionable issues to seamlessly move from open-ended team conversation to tracked development work.",
+    "slug": "github-discussions-to-github-issues-integration"
+  },
+  {
+    "tool_a": "GitHub Actions",
+    "tool_b": "GitHub Codespaces",
+    "use_case": "Pre-build Codespaces environments using Actions workflows so developers always get fast, ready-to-code cloud environments.",
+    "slug": "github-actions-to-github-codespaces-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "MCP Registry",
+    "use_case": "Connect Copilot to external tools and data sources through the Model Context Protocol to extend AI capabilities across the development workflow.",
+    "slug": "github-copilot-to-mcp-registry-integration"
+  },
+  {
+    "tool_a": "GitHub Code Review",
+    "tool_b": "GitHub Actions",
+    "use_case": "Automatically trigger code quality checks, linting, and tests when a pull request is opened to enforce standards before merging.",
+    "slug": "github-code-review-to-github-actions-integration"
+  },
+  {
+    "tool_a": "Dependabot",
+    "tool_b": "GitHub Actions",
+    "use_case": "Automatically merge Dependabot dependency update pull requests using Actions workflows after CI checks pass, reducing maintenance overhead.",
+    "slug": "dependabot-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub Sponsors",
+    "tool_b": "GitHub Marketplace",
+    "use_case": "Fund open source maintainers whose tools and actions you rely on from the Marketplace to sustain the open source ecosystem.",
+    "slug": "github-sponsors-to-github-marketplace-integration"
+  },
+  {
+    "tool_a": "GitHub Advanced Security",
+    "tool_b": "GitHub Actions",
+    "use_case": "Run CodeQL and secret scanning as part of every GitHub Actions workflow to continuously enforce security policies across all repositories.",
+    "slug": "github-advanced-security-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Discussions",
+    "use_case": "Use Copilot to summarize long discussion threads and generate actionable next steps, keeping team knowledge organized alongside code.",
+    "slug": "github-copilot-to-github-discussions-integration"
+  },
+  {
+    "tool_a": "GitHub Projects",
+    "tool_b": "GitHub Actions",
+    "use_case": "Automatically update project board statuses and fields using Actions workflows triggered by pull request or issue lifecycle events.",
+    "slug": "github-projects-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Enterprise",
+    "use_case": "Deploy enterprise-grade AI code assistance at scale with centralized policy controls, usage analytics, and security compliance for large organizations.",
+    "slug": "github-copilot-to-github-enterprise-integration"
+  },
+  {
+    "tool_a": "GitHub Code Security",
+    "tool_b": "GitHub Actions",
+    "use_case": "Block pull request merges automatically when code scanning finds critical vulnerabilities, enforcing security quality gates in CI/CD pipelines.",
+    "slug": "github-code-security-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub CLI",
+    "tool_b": "GitHub Actions",
+    "use_case": "Trigger, monitor, and manage GitHub Actions workflows directly from the terminal to streamline developer automation without leaving the command line.",
+    "slug": "github-cli-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub Desktop",
+    "tool_b": "GitHub Codespaces",
+    "use_case": "Open repositories from GitHub Desktop directly into a Codespaces environment, giving developers a seamless transition between local and cloud development.",
+    "slug": "github-desktop-to-github-codespaces-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Advanced Security",
+    "use_case": "Apply Copilot Autofix suggestions to security alerts raised by Advanced Security scanning, reducing mean time to remediate vulnerabilities.",
+    "slug": "github-copilot-to-github-advanced-security-integration"
+  },
+  {
+    "tool_a": "GitHub Issues",
+    "tool_b": "GitHub Actions",
+    "use_case": "Automate issue triage, labeling, and assignment workflows using Actions so teams can focus on building rather than manual project administration.",
+    "slug": "github-issues-to-github-actions-integration"
+  },
+  {
+    "tool_a": "GitHub Marketplace",
+    "tool_b": "GitHub Advanced Security",
+    "use_case": "Install third-party security scanning tools from the Marketplace and integrate them into Advanced Security workflows for comprehensive application protection.",
+    "slug": "github-marketplace-to-github-advanced-security-integration"
+  },
+  {
+    "tool_a": "GitHub Copilot",
+    "tool_b": "GitHub Projects",
+    "use_case": "Assign project tasks and sub-issues to Copilot agents to autonomously implement work items, keeping project boards automatically up to date.",
+    "slug": "github-copilot-to-github-projects-integration"
+  },
+  {
+    "tool_a": "GitHub Actions",
+    "tool_b": "GitHub Packages",
+    "use_case": "Publish versioned packages, container images, and artifacts directly to GitHub Packages as part of automated CI/CD release pipelines.",
+    "slug": "github-actions-to-github-packages-integration"
+  },
+  {
+    "tool_a": "GitHub Secret Protection",
+    "tool_b": "GitHub Actions",
+    "use_case": "Automatically block commits containing exposed secrets using push protection and notify security teams via Actions-triggered alerts.",
+    "slug": "github-secret-protection-to-github-actions-integration"
   }
 ]
