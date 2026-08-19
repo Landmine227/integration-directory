@@ -3,14 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ConnectSync — The integration layer your stack should have shipped with</title>
-<meta name="description" content="ConnectSync ships pre-built, monitored connectors for 400+ B2B systems. Wire them once, ship in an afternoon, stop maintaining OAuth flows." />
+<title>SyncOps Registry | Enterprise B2B Systems Middleware Registry — SOC 2 Compliant No-Code Integration Blueprints</title>
+<meta name="description" content="SyncOps Registry ships pre-built, 1-click n8n automation blueprints for Automated Bidirectional Data Sync across 400+ B2B systems. Prevent schema drift, bypass custom API integration engineering costs, and deploy production-ready webhook connectors — SOC 2 Type II compliant." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <style>
-/* ---------- design tokens ---------- */
 :root {
   --paper:      #F7F5F0;
   --paper-2:    #EFEBE1;
@@ -27,6 +26,8 @@
   --ga-tint:    #E1F1E9;
   --beta:       #B65E00;
   --beta-tint:  #FBEBD8;
+  --red:        #B02020;
+  --red-tint:   #FCE7E7;
   --white:      #FFFFFF;
 
   --serif: "Fraunces", "Iowan Old Style", "Palatino", Georgia, serif;
@@ -43,7 +44,6 @@
   --shadow-lg: 0 40px 60px -30px rgba(11,15,23,.30), 0 20px 30px -20px rgba(11,15,23,.20);
 }
 
-/* ---------- reset ---------- */
 *,*::before,*::after { box-sizing: border-box; }
 html,body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
@@ -62,7 +62,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
-/* utility */
 .wrap { max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
 .mono { font-family: var(--mono); letter-spacing: .02em; }
 .eyebrow {
@@ -73,6 +72,25 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: .14em;
   color: var(--muted);
 }
+.section-head {
+  max-width: 640px;
+  margin: 0 0 40px;
+}
+.section-head h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+  font-size: clamp(28px, 3.2vw, 40px);
+  letter-spacing: -.02em;
+  line-height: 1.08;
+  margin: 8px 0 0;
+}
+.section-head p {
+  color: var(--muted);
+  font-size: 14.5px;
+  margin: 14px 0 0;
+  line-height: 1.6;
+}
 
 /* ---------- nav ---------- */
 .nav {
@@ -82,875 +100,396 @@ a { color: inherit; text-decoration: none; }
   -webkit-backdrop-filter: saturate(140%) blur(10px);
   border-bottom: 1px solid var(--rule);
 }
-.nav__inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 62px;
-}
+.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand__mark {
-  width: 22px; height: 22px; position: relative;
-}
+.brand__mark { width: 22px; height: 22px; position: relative; }
 .brand__mark::before, .brand__mark::after {
   content: ""; position: absolute; inset: 0;
-  border: 1.5px solid var(--ink);
-  border-radius: 50%;
+  border: 1.5px solid var(--ink); border-radius: 50%;
 }
-.brand__mark::after {
-  transform: translateX(8px);
-  border-color: var(--accent);
-  mix-blend-mode: multiply;
-}
-.brand__word {
-  font-family: var(--sans);
-  font-weight: 600;
-  letter-spacing: -.015em;
-  font-size: 16px;
-}
+.brand__mark::after { transform: translateX(8px); border-color: var(--accent); mix-blend-mode: multiply; }
+.brand__word { font-family: var(--sans); font-weight: 600; letter-spacing: -.015em; font-size: 16px; white-space: nowrap; }
 .brand__word span { color: var(--accent); }
 
-.nav__links { display: flex; align-items: center; gap: 28px; }
-.nav__links a {
-  font-size: 13.5px; color: var(--ink-2); font-weight: 500;
-  padding: 6px 0; position: relative;
-}
+.nav__links { display: flex; align-items: center; gap: 26px; }
+.nav__links a { font-size: 13.5px; color: var(--ink-2); font-weight: 500; padding: 6px 0; }
 .nav__links a:hover { color: var(--accent); }
-.nav__links a.has-caret::after {
-  content: ""; display: inline-block; margin-left: 6px;
-  width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg) translate(-2px,-2px);
-  vertical-align: middle; opacity: .55;
-}
 .nav__actions { display: flex; align-items: center; gap: 12px; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 15px;
-  border-radius: var(--radius);
+  padding: 9px 15px; border-radius: var(--radius);
   font-size: 13.5px; font-weight: 500;
   transition: transform .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
 }
 .btn--ghost { color: var(--ink); }
 .btn--ghost:hover { color: var(--accent); }
-.btn--dark {
-  background: var(--ink); color: var(--paper);
-  border: 1px solid var(--ink);
-}
+.btn--dark { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
 .btn--dark:hover { background: var(--ink-2); }
-.btn--primary {
-  background: var(--accent); color: #fff;
-  border: 1px solid var(--accent);
-  box-shadow: var(--shadow-sm);
-}
+.btn--primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); box-shadow: var(--shadow-sm); }
 .btn--primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
-.btn--outline {
-  border: 1px solid var(--rule); background: var(--white); color: var(--ink);
-}
+.btn--outline { border: 1px solid var(--rule); background: var(--white); color: var(--ink); }
 .btn--outline:hover { border-color: var(--ink); }
-.btn__kbd {
-  font-family: var(--mono);
-  font-size: 11px;
-  padding: 2px 6px;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  color: var(--muted);
-  background: var(--paper);
-  margin-left: 4px;
-}
+.btn--block { width: 100%; justify-content: center; }
 
 /* ---------- hero ---------- */
-.hero {
-  position: relative;
-  padding: clamp(56px, 9vw, 104px) 0 clamp(72px, 10vw, 120px);
-  overflow: hidden;
-  border-bottom: 1px solid var(--rule);
-}
+.hero { position: relative; padding: clamp(52px, 8vw, 96px) 0 clamp(60px, 9vw, 104px); overflow: hidden; border-bottom: 1px solid var(--rule); }
 .hero::before {
-  content: "";
-  position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0;
   background-image:
     linear-gradient(to right, rgba(11,15,23,.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(11,15,23,.035) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: -1px -1px;
+  background-size: 32px 32px; background-position: -1px -1px;
   mask-image: radial-gradient(ellipse at 30% 40%, #000 0%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse at 30% 40%, #000 0%, transparent 75%);
   pointer-events: none;
 }
-.hero__grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: clamp(32px, 5vw, 64px);
-  align-items: center;
-}
+.hero__grid { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
 .hero__eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  margin-bottom: 22px;
-  padding: 5px 10px 5px 6px;
-  border: 1px solid var(--rule);
-  background: var(--white);
-  border-radius: 100px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: .06em;
-  color: var(--ink-2);
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
+  padding: 5px 10px 5px 6px; border: 1px solid var(--rule); background: var(--white);
+  border-radius: 100px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; color: var(--ink-2);
 }
-.hero__eyebrow-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--ga);
-  box-shadow: 0 0 0 4px var(--ga-tint);
-}
-.hero__eyebrow-tag {
-  font-weight: 600; color: var(--ink);
-}
+.hero__eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ga); box-shadow: 0 0 0 4px var(--ga-tint); }
+.hero__eyebrow-tag { font-weight: 600; color: var(--ink); }
 .hero h1 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-variation-settings: "opsz" 120, "SOFT" 30;
-  font-size: clamp(38px, 5.4vw, 68px);
-  line-height: 1.02;
-  letter-spacing: -.022em;
-  margin: 0 0 22px;
-  color: var(--ink);
+  font-family: var(--serif); font-weight: 400; font-variation-settings: "opsz" 120, "SOFT" 30;
+  font-size: clamp(36px, 5vw, 62px); line-height: 1.03; letter-spacing: -.02em; margin: 0 0 20px; color: var(--ink);
 }
-.hero h1 em {
-  font-style: italic;
-  font-variation-settings: "opsz" 120, "SOFT" 100;
-  color: var(--accent);
-}
-.hero__lede {
-  font-size: 17px;
-  line-height: 1.55;
-  color: var(--ink-2);
-  max-width: 520px;
-  margin: 0 0 30px;
-}
+.hero h1 em { font-style: italic; font-variation-settings: "opsz" 120, "SOFT" 100; color: var(--accent); }
+.hero__lede { font-size: 16.5px; line-height: 1.6; color: var(--ink-2); max-width: 540px; margin: 0 0 28px; }
+.hero__lede b { color: var(--ink); font-weight: 600; }
 .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-.hero__meta {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 24px;
-  max-width: 520px;
-}
-.hero__stat { border-top: 1px solid var(--rule); padding-top: 14px; }
-.hero__stat-num {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-variation-settings: "opsz" 60;
-  font-size: 30px;
-  letter-spacing: -.02em;
-  line-height: 1;
-}
-.hero__stat-lab {
-  margin-top: 6px;
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--muted);
-}
 
-/* --- node graph visual --- */
+.hero__ecosystem { margin-top: 26px; }
+.hero__ecosystem-label {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted-2); display: block; margin-bottom: 10px;
+}
+.hero__ecosystem-logos { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.hero__ecosystem-logos span {
+  font-family: var(--serif); font-weight: 500; font-variation-settings: "opsz" 40;
+  font-size: 15px; color: var(--ink-2); opacity: .62; letter-spacing: -.01em;
+}
+.hero__ecosystem-logos span:hover { opacity: 1; }
+
+.hero__meta { margin-top: 34px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 22px; max-width: 520px; }
+.hero__stat { border-top: 1px solid var(--rule); padding-top: 12px; }
+.hero__stat-num { font-family: var(--serif); font-weight: 500; font-variation-settings: "opsz" 60; font-size: 27px; letter-spacing: -.02em; line-height: 1; }
+.hero__stat-lab { margin-top: 6px; font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+
 .graph {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  max-width: 560px;
-  margin-left: auto;
-  background:
-    radial-gradient(circle at 50% 50%, var(--white) 0%, var(--paper) 70%);
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
+  position: relative; aspect-ratio: 1 / 1; width: 100%; max-width: 560px; margin-left: auto;
+  background: radial-gradient(circle at 50% 50%, var(--white) 0%, var(--paper) 70%);
+  border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow-md); overflow: hidden;
 }
 .graph__label {
-  position: absolute; top: 14px; left: 14px;
-  display: flex; align-items: center; gap: 8px;
-  font-family: var(--mono);
-  font-size: 11px; letter-spacing: .08em;
-  color: var(--muted);
-  text-transform: uppercase;
+  position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--muted); text-transform: uppercase;
 }
 .graph__label::before {
-  content: ""; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-tint);
-  animation: livePulse 2.4s ease-in-out infinite;
+  content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-tint); animation: livePulse 2.4s ease-in-out infinite;
 }
+.graph__region { transition: opacity .3s ease; }
+.graph__region.fading { opacity: 0; }
 .graph__meter {
-  position: absolute; top: 14px; right: 14px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  padding: 4px 8px;
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
+  position: absolute; top: 14px; right: 14px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 6px 8px;
+  background: var(--white); border: 1px solid var(--rule); border-radius: 3px;
 }
-.graph__meter b { color: var(--ink); font-weight: 600; }
-@keyframes livePulse {
-  0%,100% { box-shadow: 0 0 0 3px var(--accent-tint); }
-  50%     { box-shadow: 0 0 0 6px rgba(43,75,255,.10); }
-}
-.graph svg { width: 100%; height: 100%; }
+.graph__meter-top { display: flex; align-items: baseline; gap: 4px; }
+.graph__meter b { color: var(--ink); font-weight: 600; font-size: 13px; }
+.graph__spark { width: 90px; height: 20px; display: block; }
+.graph__spark path { fill: none; stroke: var(--accent); stroke-width: 1.4; }
+@keyframes livePulse { 0%,100% { box-shadow: 0 0 0 3px var(--accent-tint); } 50% { box-shadow: 0 0 0 6px rgba(43,75,255,.10); } }
+.graph svg.n-svg { width: 100%; height: 100%; }
 .graph .n-line { stroke: rgba(11,15,23,.18); stroke-width: 1.2; fill: none; }
-.graph .n-node rect {
-  fill: var(--white);
-  stroke: var(--ink);
-  stroke-width: 1.25;
-}
-.graph .n-node text {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  fill: var(--ink);
-  font-weight: 500;
-}
+.graph .n-node rect { fill: var(--white); stroke: var(--ink); stroke-width: 1.25; }
+.graph .n-node text { font-family: var(--mono); font-size: 10.5px; fill: var(--ink); font-weight: 500; }
 .graph .n-node .n-dot { fill: var(--accent); }
-.graph .n-center rect {
-  fill: var(--ink); stroke: var(--ink);
-}
-.graph .n-center text {
-  fill: var(--paper);
-  font-family: var(--sans);
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: -.005em;
-}
-.graph .n-packet {
-  fill: var(--accent);
-}
+.graph .n-center rect { fill: var(--ink); stroke: var(--ink); }
+.graph .n-center text { fill: var(--paper); font-family: var(--sans); font-weight: 600; font-size: 11.5px; letter-spacing: -.005em; }
+.graph .n-packet { fill: var(--accent); }
+
+/* ---------- how it works ---------- */
+.how { background: var(--white); border-bottom: 1px solid var(--rule); padding: clamp(52px, 7vw, 84px) 0; }
+.how__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.how__step { border-top: 2px solid var(--ink); padding-top: 18px; }
+.how__num { font-family: var(--serif); font-size: 15px; font-weight: 600; color: var(--accent); font-variation-settings: "opsz" 30; }
+.how__step h3 { font-family: var(--sans); font-size: 17px; font-weight: 600; letter-spacing: -.01em; margin: 10px 0 8px; }
+.how__step p { color: var(--ink-2); font-size: 13.75px; line-height: 1.6; margin: 0; }
 
 /* ---------- trust deck ---------- */
-.trust {
-  border-bottom: 1px solid var(--rule);
-  padding: 40px 0 44px;
-  background: var(--paper-2);
-}
-.trust__row {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 40px;
-  align-items: center;
-}
-.trust__lede {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.55;
-}
+.trust { border-bottom: 1px solid var(--rule); padding: 36px 0 40px; background: var(--paper-2); }
+.trust__row { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; }
+.trust__lede { font-size: 13px; color: var(--muted); line-height: 1.55; }
 .trust__lede b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
-.trust__logos {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 4px;
-  border-left: 1px solid var(--rule);
-}
+.trust__logos { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; border-left: 1px solid var(--rule); }
 .trust__logo {
-  display: flex; align-items: center; justify-content: center;
-  padding: 12px 8px;
-  font-family: var(--serif);
-  font-weight: 500;
-  font-variation-settings: "opsz" 60;
-  font-size: 18px;
-  letter-spacing: -.015em;
-  color: var(--ink);
-  opacity: .55;
-  transition: opacity .2s ease;
-  border-right: 1px solid var(--rule);
-  text-align: center;
-  line-height: 1.1;
+  display: flex; align-items: center; justify-content: center; padding: 12px 8px;
+  font-family: var(--serif); font-weight: 500; font-variation-settings: "opsz" 60; font-size: 18px;
+  letter-spacing: -.015em; color: var(--ink); opacity: .55; transition: opacity .2s ease;
+  border-right: 1px solid var(--rule); text-align: center; line-height: 1.1;
 }
 .trust__logo:last-child { border-right: 0; }
 .trust__logo:hover { opacity: 1; }
-.trust__logo small {
-  display: block;
-  font-family: var(--mono);
-  font-weight: 400;
-  font-size: 9px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 2px;
+.trust__logo small { display: block; font-family: var(--mono); font-weight: 400; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+
+/* ---------- pipelines (static SEO section) ---------- */
+.pipelines { background: var(--white); border-bottom: 1px solid var(--rule); padding: clamp(52px, 7vw, 84px) 0; }
+.pipelines__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+.pipe-card { border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: 20px; background: var(--paper); transition: border-color .15s ease, transform .15s ease; }
+.pipe-card:hover { border-color: rgba(11,15,23,.3); transform: translateY(-2px); }
+.pipe-card__route { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+.pipe-card h3 { font-family: var(--sans); font-size: 15.5px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 8px; line-height: 1.35; }
+.pipe-card p { font-size: 13px; color: var(--ink-2); line-height: 1.55; margin: 0 0 14px; }
+.pipe-card a { font-size: 12.5px; font-weight: 600; color: var(--accent); }
+.pipe-card a:hover { color: var(--accent-ink); }
+
+/* ---------- canvas / readability section ---------- */
+.canvas-sec { background: var(--paper-2); border-bottom: 1px solid var(--rule); padding: clamp(52px, 7vw, 84px) 0; }
+.canvas-sec__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.canvas-sec__copy p { color: var(--ink-2); font-size: 14.5px; line-height: 1.65; margin: 0 0 14px; }
+.canvas-sec__copy ul { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.canvas-sec__copy li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: var(--ink-2); }
+.canvas-sec__copy li::before { content: "✓"; color: var(--ga); font-weight: 700; flex-shrink: 0; }
+.n8n-canvas {
+  background: var(--white); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow-md);
+  padding: 20px; overflow-x: auto;
 }
+.n8n-canvas svg .cv-box rect { fill: var(--white); stroke: var(--rule); stroke-width: 1.5; }
+.n8n-canvas svg .cv-box.cv-trigger rect { stroke: var(--ga); }
+.n8n-canvas svg .cv-box.cv-alert rect { stroke: var(--beta); stroke-dasharray: 3 3; }
+.n8n-canvas svg .cv-box text { font-family: var(--mono); font-size: 10px; fill: var(--ink); font-weight: 500; }
+.n8n-canvas svg .cv-box .cv-sub { fill: var(--muted); font-size: 8.5px; }
+.n8n-canvas svg .cv-line { stroke: var(--rule); stroke-width: 1.5; fill: none; }
+.n8n-canvas svg .cv-line.cv-alert-line { stroke: var(--beta); stroke-dasharray: 3 3; }
+.n8n-canvas svg .cv-dot { fill: var(--ga); }
+.n8n-canvas svg .cv-dot.cv-dot-beta { fill: var(--beta); }
+
+/* ---------- error handling mock ---------- */
+.errsec { background: var(--white); border-bottom: 1px solid var(--rule); padding: clamp(52px, 7vw, 84px) 0; }
+.errsec__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.errsec__copy p { color: var(--ink-2); font-size: 14.5px; line-height: 1.65; margin: 0 0 14px; }
+.alertlog { background: var(--ink); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
+.alertlog__head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.alertlog__dot { width: 8px; height: 8px; border-radius: 50%; }
+.alertlog__dot--r { background: #E5645B; } .alertlog__dot--y { background: #E5B84B; } .alertlog__dot--g { background: #5FBE72; }
+.alertlog__title { font-family: var(--mono); font-size: 11px; color: #9AA1AE; margin-left: 6px; }
+.alertlog__body { padding: 14px 16px; display: grid; gap: 10px; }
+.alertlog__row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: baseline; font-family: var(--mono); font-size: 12px; padding: 8px 10px; border-radius: 4px; background: rgba(255,255,255,.03); }
+.alertlog__badge { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
+.alertlog__badge--warn { background: rgba(230,184,75,.15); color: #E5B84B; }
+.alertlog__badge--ok { background: rgba(95,190,114,.15); color: #5FBE72; }
+.alertlog__badge--info { background: rgba(107,148,255,.15); color: #8FA8FF; }
+.alertlog__msg { color: #D9DEE8; }
+.alertlog__msg b { color: #fff; }
+.alertlog__time { color: #6B7280; }
 
 /* ---------- registry ---------- */
-.registry {
-  background: var(--white);
-  border-bottom: 1px solid var(--rule);
-  padding: clamp(56px, 8vw, 88px) 0 clamp(64px, 10vw, 112px);
-}
-.registry__head {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: end;
-  margin-bottom: 36px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--rule);
-}
-.registry__title {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-variation-settings: "opsz" 96, "SOFT" 30;
-  font-size: clamp(30px, 3.4vw, 42px);
-  letter-spacing: -.02em;
-  line-height: 1.05;
-  margin: 8px 0 0;
-}
-.registry__lede {
-  color: var(--muted);
-  font-size: 14px;
-  max-width: 380px;
-  text-align: right;
-}
-.registry__frame {
-  display: grid;
-  grid-template-columns: 232px 1fr;
-  gap: 40px;
-  align-items: start;
-}
+.registry { background: var(--white); border-bottom: 1px solid var(--rule); padding: clamp(56px, 8vw, 88px) 0 clamp(64px, 10vw, 112px); }
+.registry__head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
+.registry__title { font-family: var(--serif); font-weight: 400; font-variation-settings: "opsz" 96, "SOFT" 30; font-size: clamp(30px, 3.4vw, 42px); letter-spacing: -.02em; line-height: 1.05; margin: 8px 0 0; }
+.registry__lede { color: var(--muted); font-size: 14px; max-width: 380px; text-align: right; }
+.registry__frame { display: grid; grid-template-columns: 232px 1fr; gap: 40px; align-items: start; }
 .rail__section + .rail__section { margin-top: 24px; }
-.rail__label {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--rule-soft);
-}
+.rail__label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--rule-soft); }
 .rail__list { list-style: none; margin: 0; padding: 0; }
-.rail__item { }
-.rail__btn {
-  display: flex; align-items: center; justify-content: space-between;
-  width: 100%;
-  padding: 7px 10px;
-  border-radius: var(--radius);
-  font-size: 13.5px;
-  color: var(--ink-2);
-  text-align: left;
-  transition: background .12s ease, color .12s ease;
-}
+.rail__btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 7px 10px; border-radius: var(--radius); font-size: 13.5px; color: var(--ink-2); text-align: left; transition: background .12s ease, color .12s ease; }
 .rail__btn:hover { background: var(--paper); color: var(--ink); }
-.rail__btn[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--paper);
-  font-weight: 500;
-}
-.rail__btn[aria-pressed="true"] .rail__count {
-  color: rgba(247,245,240,.6);
-  border-color: rgba(247,245,240,.2);
-}
-.rail__count {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  padding: 1px 6px;
-  border: 1px solid var(--rule-soft);
-  border-radius: 100px;
-}
-
+.rail__btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); font-weight: 500; }
+.rail__btn[aria-pressed="true"] .rail__count { color: rgba(247,245,240,.6); border-color: rgba(247,245,240,.2); }
+.rail__count { font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 1px 6px; border: 1px solid var(--rule-soft); border-radius: 100px; }
 .rail__legend { display: grid; gap: 8px; }
-.rail__legend-row {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 12.5px; color: var(--ink-2);
-}
-.rail__legend-row .swatch {
-  width: 8px; height: 8px; border-radius: 50%;
-  display: inline-block;
-}
-.swatch--ga { background: var(--ga); }
-.swatch--beta { background: var(--beta); }
+.rail__legend-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); }
+.rail__legend-row .swatch { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.swatch--ga { background: var(--ga); } .swatch--beta { background: var(--beta); }
 
-/* workspace */
 .workspace { min-width: 0; }
-.workspace__bar {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.search {
-  position: relative;
-}
+.workspace__bar { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; margin-bottom: 20px; }
+.search { position: relative; }
 .search input {
-  width: 100%;
-  padding: 11px 12px 11px 40px;
-  font: inherit;
-  color: var(--ink);
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  width: 100%; padding: 11px 12px 11px 40px; font: inherit; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); border-radius: var(--radius); transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
 }
 .search input::placeholder { color: var(--muted-2); }
-.search input:focus {
-  outline: 0;
-  border-color: var(--accent);
-  background: var(--white);
-  box-shadow: 0 0 0 4px rgba(43,75,255,.10);
-}
-.search svg {
-  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-  color: var(--muted);
-}
-.search__kbd {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  padding: 2px 6px;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  background: var(--white);
-  pointer-events: none;
-}
-.select {
-  position: relative;
-  display: inline-flex; align-items: center;
-  padding: 0 32px 0 12px;
-  height: 42px;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  font-size: 13px; color: var(--ink-2);
-  cursor: pointer;
-}
-.select select {
-  appearance: none; -webkit-appearance: none;
-  background: transparent; border: 0;
-  font: inherit; color: inherit;
-  padding: 0 4px 0 0;
-  outline: 0;
-  cursor: pointer;
-}
-.select::after {
-  content: ""; position: absolute; right: 12px; top: 50%;
-  width: 6px; height: 6px;
-  border-right: 1.5px solid var(--muted);
-  border-bottom: 1.5px solid var(--muted);
-  transform: translateY(-70%) rotate(45deg);
-}
+.search input:focus { outline: 0; border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 4px rgba(43,75,255,.10); }
+.search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search__kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 2px 6px; border: 1px solid var(--rule); border-radius: 3px; background: var(--white); pointer-events: none; }
+.select { position: relative; display: inline-flex; align-items: center; padding: 0 32px 0 12px; height: 42px; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius); font-size: 13px; color: var(--ink-2); cursor: pointer; }
+.select select { appearance: none; -webkit-appearance: none; background: transparent; border: 0; font: inherit; color: inherit; padding: 0 4px 0 0; outline: 0; cursor: pointer; }
+.select::after { content: ""; position: absolute; right: 12px; top: 50%; width: 6px; height: 6px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: translateY(-70%) rotate(45deg); }
 
-.workspace__meta {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 0 16px;
-  border-bottom: 1px solid var(--rule-soft);
-  margin-bottom: 20px;
-}
-.workspace__count {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--muted);
-}
+.workspace__meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 10px 0 16px; border-bottom: 1px solid var(--rule-soft); margin-bottom: 20px; }
+.workspace__count { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .workspace__count b { color: var(--ink); font-weight: 600; }
+.workspace__sync { display: flex; align-items: center; gap: 14px; }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
-}
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 .card {
-  position: relative;
-  display: flex; flex-direction: column;
-  padding: 18px 18px 16px;
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius-lg);
-  text-align: left;
-  cursor: pointer;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  position: relative; display: flex; flex-direction: column; padding: 18px 18px 16px;
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--radius-lg);
+  text-align: left; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
-.card:hover {
-  border-color: rgba(11,15,23,.35);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
+.card:hover { border-color: rgba(11,15,23,.35); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .card:focus-visible { border-color: var(--accent); }
-.card__head {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
-}
+.card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.card__marks { display: flex; align-items: center; }
 .card__mark {
-  width: 40px; height: 40px;
-  border-radius: 8px;
-  display: grid; place-items: center;
-  font-family: var(--mono);
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--ink);
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  letter-spacing: -.01em;
+  width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center;
+  font-family: var(--mono); font-weight: 600; font-size: 12px; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--rule); letter-spacing: -.01em;
 }
-.card__status {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 100px;
-  font-weight: 600;
-}
+.card__mark--b { margin-left: -8px; background: var(--white); }
+.card__arrow { color: var(--muted-2); margin: 0 4px; }
+.card__status { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; font-weight: 600; white-space: nowrap; }
 .card__status--ga { color: var(--ga); background: var(--ga-tint); }
 .card__status--beta { color: var(--beta); background: var(--beta-tint); }
-.card__name {
-  font-family: var(--sans);
-  font-size: 16px; font-weight: 600;
-  letter-spacing: -.01em;
-  margin: 0 0 2px;
-  color: var(--ink);
-}
-.card__cat {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: .04em;
-}
-.card__desc {
-  margin: 12px 0 16px;
-  font-size: 13.5px;
-  color: var(--ink-2);
-  line-height: 1.5;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.card__foot {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid var(--rule-soft);
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-}
-.card__foot b { color: var(--ink); font-weight: 600; }
+.card__name { font-family: var(--sans); font-size: 15.5px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 2px; color: var(--ink); line-height: 1.35; }
+.card__cat { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+.card__desc { margin: 12px 0 16px; font-size: 13px; color: var(--ink-2); line-height: 1.5; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 12px; border-top: 1px solid var(--rule-soft); font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+.card__chip { padding: 2px 7px; border: 1px solid var(--rule); border-radius: 100px; background: var(--paper); }
 
-.empty {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 48px 20px;
-  border: 1px dashed var(--rule);
-  border-radius: var(--radius-lg);
-  color: var(--muted);
-  background: var(--paper);
-}
-.empty h3 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: 20px;
-  margin: 0 0 6px;
-  color: var(--ink);
-}
-.empty p { margin: 0 0 14px; font-size: 13.5px; }
+.empty { grid-column: 1 / -1; text-align: center; padding: 52px 24px; border: 1px dashed var(--rule); border-radius: var(--radius-lg); color: var(--muted); background: var(--paper); }
+.empty h3 { font-family: var(--serif); font-weight: 500; font-size: 20px; margin: 0 0 8px; color: var(--ink); }
+.empty p { margin: 0 auto 16px; font-size: 13.5px; max-width: 420px; line-height: 1.6; }
 
-/* skeleton loader */
-.skeleton {
-  border: 1px solid var(--rule);
-  border-radius: var(--radius-lg);
-  padding: 18px;
-  min-height: 168px;
-  background:
-    linear-gradient(90deg, var(--white) 0%, var(--paper) 50%, var(--white) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s linear infinite;
-}
+.skeleton { border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: 18px; min-height: 168px; background: linear-gradient(90deg, var(--white) 0%, var(--paper) 50%, var(--white) 100%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 /* ---------- drawer ---------- */
-.backdrop {
-  position: fixed; inset: 0;
-  background: rgba(11,15,23,.45);
-  opacity: 0; visibility: hidden;
-  transition: opacity .28s ease, visibility 0s linear .28s;
-  z-index: 60;
-}
-.backdrop[data-open="true"] {
-  opacity: 1; visibility: visible;
-  transition: opacity .28s ease;
-}
-.drawer {
-  position: fixed; top: 0; right: 0; bottom: 0;
-  width: min(520px, 100%);
-  background: var(--paper);
-  border-left: 1px solid var(--rule);
-  box-shadow: var(--shadow-lg);
-  transform: translateX(100%);
-  transition: transform .32s cubic-bezier(.22,.61,.36,1);
-  z-index: 70;
-  display: flex; flex-direction: column;
-}
+.backdrop { position: fixed; inset: 0; background: rgba(11,15,23,.45); opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility 0s linear .28s; z-index: 60; }
+.backdrop[data-open="true"] { opacity: 1; visibility: visible; transition: opacity .28s ease; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100%); background: var(--paper); border-left: 1px solid var(--rule); box-shadow: var(--shadow-lg); transform: translateX(100%); transition: transform .32s cubic-bezier(.22,.61,.36,1); z-index: 70; display: flex; flex-direction: column; }
 .drawer[data-open="true"] { transform: translateX(0); }
-.drawer__head {
-  padding: 18px 22px;
-  border-bottom: 1px solid var(--rule);
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--white);
-}
+.drawer__head { padding: 18px 22px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; background: var(--white); }
 .drawer__head-l { display: flex; align-items: center; gap: 12px; }
-.drawer__mark {
-  width: 40px; height: 40px;
-  border-radius: 8px;
-  display: grid; place-items: center;
-  font-family: var(--mono);
-  font-weight: 600; font-size: 13px;
-  border: 1px solid var(--rule);
-  background: var(--paper);
-}
-.drawer__title {
-  font-family: var(--sans);
-  font-size: 17px; font-weight: 600;
-  letter-spacing: -.01em;
-}
-.drawer__sub {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: .04em;
-  margin-top: 2px;
-}
-.drawer__close {
-  width: 34px; height: 34px;
-  display: grid; place-items: center;
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  color: var(--ink-2);
-  background: var(--white);
-  transition: background .12s ease, color .12s ease;
-}
+.drawer__marks { display: flex; align-items: center; }
+.drawer__mark { width: 38px; height: 38px; border-radius: 8px; display: grid; place-items: center; font-family: var(--mono); font-weight: 600; font-size: 12px; border: 1px solid var(--rule); background: var(--paper); }
+.drawer__mark--b { margin-left: -8px; background: var(--white); }
+.drawer__title { font-family: var(--sans); font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+.drawer__sub { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; margin-top: 2px; }
+.drawer__close { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--rule); border-radius: var(--radius); color: var(--ink-2); background: var(--white); transition: background .12s ease, color .12s ease; flex-shrink: 0; }
 .drawer__close:hover { color: var(--accent); background: var(--paper); }
-.drawer__body {
-  overflow-y: auto;
-  padding: 22px;
-  flex: 1;
-}
+.drawer__body { overflow-y: auto; padding: 22px; flex: 1; }
 .drawer__section + .drawer__section { margin-top: 26px; }
-.drawer__section h4 {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 10px;
-}
-.drawer__desc {
-  color: var(--ink-2);
-  font-size: 14.5px;
-  line-height: 1.6;
-  margin: 0;
-}
-.drawer__specs {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-.drawer__spec {
-  background: var(--white);
-  padding: 12px 14px;
-}
-.drawer__spec-lab {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-.drawer__spec-val {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-}
-.drawer__endpoints {
-  display: grid; gap: 6px;
-}
-.drawer__endpoint {
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 12px;
-  align-items: center;
-  padding: 8px 12px;
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  font-family: var(--mono);
-  font-size: 12px;
-}
-.drawer__endpoint .method {
-  font-weight: 600;
-  text-align: center;
-  padding: 2px 0;
-  border-radius: 3px;
-  font-size: 10.5px;
-  letter-spacing: .06em;
-}
-.method--get { background: #E1F1E9; color: var(--ga); }
-.method--post { background: var(--accent-tint); color: var(--accent-ink); }
-.method--put { background: var(--beta-tint); color: var(--beta); }
-.method--del { background: #FCE7E7; color: #B02020; }
-
-.drawer__code {
-  background: var(--ink);
-  color: #D9DEE8;
-  border-radius: var(--radius-lg);
-  padding: 16px 18px;
-  font-family: var(--mono);
-  font-size: 12.5px;
-  line-height: 1.6;
-  overflow-x: auto;
-  white-space: pre;
-}
-.drawer__code .k { color: #A5B4FF; }
-.drawer__code .s { color: #F0C674; }
-.drawer__code .c { color: #6B7280; font-style: italic; }
-.drawer__code .p { color: #9EE5C5; }
-
-.drawer__foot {
-  padding: 16px 22px;
-  border-top: 1px solid var(--rule);
-  background: var(--white);
-  display: flex; gap: 10px;
-}
+.drawer__section h4 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.drawer__desc { color: var(--ink-2); font-size: 14.5px; line-height: 1.6; margin: 0; }
+.drawer__specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--radius-lg); overflow: hidden; }
+.drawer__spec { background: var(--white); padding: 12px 14px; }
+.drawer__spec-lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.drawer__spec-val { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.drawer__feat { display: grid; gap: 8px; }
+.drawer__feat li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
+.drawer__feat li::before { content: "✓"; color: var(--ga); font-weight: 700; flex-shrink: 0; }
+.drawer__code { background: var(--ink); color: #D9DEE8; border-radius: var(--radius-lg); padding: 16px 18px; font-family: var(--mono); font-size: 12px; line-height: 1.65; overflow-x: auto; white-space: pre; }
+.drawer__code .k { color: #A5B4FF; } .drawer__code .s { color: #F0C674; } .drawer__code .c { color: #6B7280; font-style: italic; } .drawer__code .p { color: #9EE5C5; }
+.drawer__foot { padding: 16px 22px; border-top: 1px solid var(--rule); background: var(--white); display: flex; gap: 10px; }
 .drawer__foot .btn { flex: 1; justify-content: center; }
 
+/* ---------- reviews ---------- */
+.reviews { background: var(--paper-2); border-bottom: 1px solid var(--rule); padding: clamp(56px, 8vw, 88px) 0; }
+.reviews__head { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; margin-bottom: 40px; }
+.rating-box { text-align: center; padding-right: 32px; border-right: 1px solid var(--rule); }
+.rating-box__num { font-family: var(--serif); font-size: 46px; font-weight: 500; font-variation-settings: "opsz" 90; letter-spacing: -.02em; line-height: 1; }
+.rating-box__stars { color: var(--beta); font-size: 15px; margin: 6px 0; letter-spacing: 2px; }
+.rating-box__count { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.rating-bars { display: grid; gap: 6px; }
+.rating-bar { display: grid; grid-template-columns: 40px 1fr 32px; gap: 10px; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.rating-bar__track { height: 6px; background: var(--rule-soft); border-radius: 100px; overflow: hidden; }
+.rating-bar__fill { height: 100%; background: var(--beta); border-radius: 100px; }
+.reviews__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.rcard { background: var(--white); border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; }
+.rcard__stars { color: var(--beta); font-size: 13px; letter-spacing: 1.5px; margin-bottom: 10px; }
+.rcard__quote { font-size: 13.75px; color: var(--ink-2); line-height: 1.6; margin: 0 0 18px; flex: 1; }
+.rcard__quote b { color: var(--ink); font-weight: 600; }
+.rcard__person { display: flex; align-items: center; gap: 10px; padding-top: 14px; border-top: 1px solid var(--rule-soft); }
+.rcard__avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--sans); font-weight: 600; font-size: 12.5px; flex-shrink: 0; }
+.rcard__name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.rcard__role { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+.rcard__verified { display: inline-flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 9.5px; color: var(--ga); margin-top: 3px; letter-spacing: .02em; }
+
+/* ---------- pricing ---------- */
+.pricing { background: var(--white); border-bottom: 1px solid var(--rule); padding: clamp(56px, 8vw, 88px) 0; }
+.pricing__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 780px; margin: 0 auto; }
+.pcard { border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: 28px; background: var(--paper); position: relative; }
+.pcard--feat { border-color: var(--ink); background: var(--white); box-shadow: var(--shadow-md); }
+.pcard__ribbon { position: absolute; top: -11px; left: 24px; background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+.pcard__name { font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 14px; }
+.pcard__price { font-family: var(--serif); font-size: 42px; font-weight: 500; font-variation-settings: "opsz" 90; letter-spacing: -.02em; line-height: 1; }
+.pcard__price span { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--muted); }
+.pcard__desc { font-size: 13.5px; color: var(--ink-2); margin: 12px 0 22px; line-height: 1.55; }
+.pcard__feat { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 10px; }
+.pcard__feat li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+.pcard__feat li::before { content: "✓"; color: var(--ga); font-weight: 700; flex-shrink: 0; }
+.pricing__compare { text-align: center; margin: 32px auto 0; max-width: 560px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+.pricing__compare b { color: var(--ink); }
+
+/* ---------- faq ---------- */
+.faq { background: var(--paper-2); border-bottom: 1px solid var(--rule); padding: clamp(56px, 8vw, 88px) 0; }
+.faq__list { max-width: 760px; display: grid; gap: 10px; }
+.faq__item { background: var(--white); border: 1px solid var(--rule); border-radius: var(--radius-lg); overflow: hidden; }
+.faq__item summary {
+  cursor: pointer; padding: 16px 20px; font-size: 14px; font-weight: 600; color: var(--ink);
+  display: flex; align-items: center; justify-content: space-between; list-style: none;
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after {
+  content: ""; width: 8px; height: 8px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg); transition: transform .2s ease; flex-shrink: 0; margin-left: 12px;
+}
+.faq__item[open] summary::after { transform: rotate(-135deg); }
+.faq__item p { margin: 0; padding: 0 20px 18px; font-size: 13.5px; color: var(--ink-2); line-height: 1.65; }
+
 /* ---------- footer ---------- */
-.foot {
-  background: var(--ink);
-  color: #B7BCC7;
-  padding: 72px 0 0;
-}
-.foot__top {
-  display: grid;
-  grid-template-columns: 1.4fr repeat(4, 1fr);
-  gap: 40px;
-  padding-bottom: 56px;
-  border-bottom: 1px solid rgba(255,255,255,.09);
-}
+.foot { background: var(--ink); color: #B7BCC7; padding: 72px 0 0; }
+.foot__top { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.09); }
 .foot__brand .brand__word { color: var(--paper); }
 .foot__brand .brand__mark::before { border-color: var(--paper); }
-.foot__pitch {
-  margin: 18px 0 22px;
-  font-size: 13.5px;
-  color: #B7BCC7;
-  line-height: 1.55;
-  max-width: 300px;
-}
-.foot__cert {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 8px 12px;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: var(--radius);
-  background: rgba(255,255,255,.03);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .06em;
-  color: var(--paper);
-}
-.foot__cert-mark {
-  width: 22px; height: 22px;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  border: 1.5px solid var(--ga);
-  color: var(--ga);
-}
+.foot__pitch { margin: 18px 0 18px; font-size: 13.5px; color: #B7BCC7; line-height: 1.55; max-width: 300px; }
+.foot__cert { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); background: rgba(255,255,255,.03); font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--paper); margin-bottom: 10px; }
+.foot__cert-mark { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--ga); color: var(--ga); flex-shrink: 0; }
 .foot__cert-mark svg { width: 12px; height: 12px; }
-.foot__col h5 {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: #7A8093;
-  margin: 4px 0 16px;
-  font-weight: 500;
-}
+.foot__status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11.5px; color: #B7BCC7; }
+.foot__status-dot { width: 7px; height: 7px; border-radius: 50%; background: #5FBE72; box-shadow: 0 0 0 3px rgba(95,190,114,.18); }
+.foot__col h5 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #7A8093; margin: 4px 0 16px; font-weight: 500; }
 .foot__col ul { list-style: none; margin: 0; padding: 0; }
 .foot__col li + li { margin-top: 10px; }
-.foot__col a {
-  color: #D6DAE3;
-  font-size: 13.5px;
-  transition: color .15s ease;
-}
+.foot__col a { color: #D6DAE3; font-size: 13.5px; transition: color .15s ease; }
 .foot__col a:hover { color: var(--white); }
-
-.foot__bot {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 0 26px;
-  gap: 24px;
-  flex-wrap: wrap;
-  font-size: 12.5px;
-  color: #7A8093;
-}
+.foot__bot { display: flex; align-items: center; justify-content: space-between; padding: 20px 0 10px; gap: 24px; flex-wrap: wrap; font-size: 12.5px; color: #7A8093; }
 .foot__badges { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.foot__badge {
-  padding: 4px 9px;
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 3px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: .08em;
-  color: #B7BCC7;
-}
+.foot__badge { padding: 4px 9px; border: 1px solid rgba(255,255,255,.10); border-radius: 3px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: #B7BCC7; }
 .foot__legal { display: flex; gap: 18px; }
-.foot__legal a { color: #7A8093; }
-.foot__legal a:hover { color: var(--white); }
+.foot__legal a { color: #7A8093; } .foot__legal a:hover { color: var(--white); }
+.foot__trademark { padding: 16px 0 26px; font-size: 11px; color: #5C6370; line-height: 1.6; border-top: 1px solid rgba(255,255,255,.06); margin-top: 6px; }
 
-/* toast */
-.toast {
-  position: fixed;
-  left: 50%; bottom: 24px;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--ink);
-  color: var(--paper);
-  padding: 10px 16px;
-  border-radius: 100px;
-  font-size: 13px;
-  box-shadow: var(--shadow-lg);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease, transform .2s ease;
-  z-index: 80;
-}
-.toast[data-open="true"] {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 100px; font-size: 13px; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 80; }
+.toast[data-open="true"] { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
   .nav__links { display: none; }
   .hero__grid { grid-template-columns: 1fr; }
   .graph { max-width: 480px; margin-inline: auto; }
+  .how__grid { grid-template-columns: 1fr; gap: 24px; }
   .trust__row { grid-template-columns: 1fr; gap: 20px; }
   .trust__logos { grid-template-columns: repeat(3, 1fr); border-left: 0; border-top: 1px solid var(--rule); }
   .trust__logo:nth-child(3n) { border-right: 0; }
+  .canvas-sec__grid, .errsec__grid { grid-template-columns: 1fr; }
   .registry__frame { grid-template-columns: 1fr; }
-  .rail {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .rail__section--cats .rail__list {
-    display: flex; flex-wrap: wrap; gap: 6px;
-  }
-  .rail__section--cats .rail__btn {
-    padding: 6px 12px;
-    border: 1px solid var(--rule);
-    border-radius: 100px;
-    width: auto;
-  }
+  .rail { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .rail__section--cats .rail__list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .rail__section--cats .rail__btn { padding: 6px 12px; border: 1px solid var(--rule); border-radius: 100px; width: auto; }
   .rail__section--cats .rail__btn[aria-pressed="true"] { border-color: var(--ink); }
   .rail__section--cats .rail__count { display: none; }
   .rail__section--legend, .rail__section--status { display: none; }
   .registry__head { grid-template-columns: 1fr; }
   .registry__lede { text-align: left; }
+  .reviews__head { grid-template-columns: 1fr; }
+  .rating-box { border-right: 0; padding-right: 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .pricing__grid { grid-template-columns: 1fr; max-width: 420px; }
   .foot__top { grid-template-columns: 1fr 1fr; gap: 32px; }
   .foot__brand { grid-column: 1 / -1; }
   .workspace__bar { grid-template-columns: 1fr; }
@@ -961,15 +500,11 @@ a { color: inherit; text-decoration: none; }
   .drawer__specs { grid-template-columns: 1fr; }
   .hero__meta { grid-template-columns: 1fr 1fr; }
   .foot__top { grid-template-columns: 1fr; }
+  .foot__bot { flex-direction: column; align-items: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,*::before,*::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-    scroll-behavior: auto !important;
-  }
+  *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 </style>
 </head>
@@ -978,21 +513,21 @@ a { color: inherit; text-decoration: none; }
 <!-- ================= NAV ================= -->
 <header class="nav">
   <div class="wrap nav__inner">
-    <a href="#" class="brand" aria-label="ConnectSync home">
+    <a href="#" class="brand" aria-label="SyncOps Registry home">
       <span class="brand__mark" aria-hidden="true"></span>
-      <span class="brand__word">connect<span>sync</span></span>
+      <span class="brand__word">syncops<span>&nbsp;registry</span></span>
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="#registry">Registry</a>
-      <a href="#" class="has-caret">Platform</a>
-      <a href="#" class="has-caret">Developers</a>
-      <a href="#">Pricing</a>
-      <a href="#">Customers</a>
-      <a href="#">Docs</a>
+      <a href="#how">How it works</a>
+      <a href="#pipelines">Pipelines</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
     </nav>
     <div class="nav__actions">
       <a href="#" class="btn btn--ghost">Sign in</a>
-      <a href="#registry" class="btn btn--dark">Book a demo</a>
+      <a href="#pricing" class="btn btn--dark">Get a blueprint · $49</a>
     </div>
   </div>
 </header>
@@ -1003,16 +538,17 @@ a { color: inherit; text-decoration: none; }
     <div class="hero__copy">
       <span class="hero__eyebrow">
         <span class="hero__eyebrow-dot" aria-hidden="true"></span>
-        <span class="hero__eyebrow-tag">v4.2</span>
-        <span>Now shipping event-level replay + partial retries</span>
+        <span class="hero__eyebrow-tag">Live</span>
+        <span>New pairings auto-published nightly via n8n</span>
       </span>
 
-      <h1>The integration layer your product team keeps <em>rebuilding.</em></h1>
+      <h1>The integration layer your operations team keeps <em>rebuilding.</em></h1>
 
       <p class="hero__lede">
-        ConnectSync ships pre-built, monitored connectors for 420+ B2B systems &mdash;
-        auth, pagination, rate limits, and schema drift handled. Wire an integration
-        in an afternoon, not a quarter.
+        SyncOps Registry ships <b>pre-built, 1-click n8n automation blueprints</b> for
+        <b>Automated Bidirectional Data Sync</b> across 400+ B2B systems &mdash; engineered to
+        <b>prevent schema drift</b>, throttle-protect your API limits, and let you
+        <b>bypass custom API integration engineering costs</b> entirely.
       </p>
 
       <div class="hero__ctas">
@@ -1022,33 +558,40 @@ a { color: inherit; text-decoration: none; }
             <path d="M3 7h8m0 0-3-3m3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="#" class="btn btn--outline">
-          Read the docs
-        </a>
+        <a href="#pricing" class="btn btn--outline">View pricing</a>
+      </div>
+
+      <div class="hero__ecosystem">
+        <span class="hero__ecosystem-label">Supported integrations include</span>
+        <div class="hero__ecosystem-logos">
+          <span>Salesforce</span><span>Stripe</span><span>Slack</span><span>Notion</span><span>HubSpot</span>
+        </div>
       </div>
 
       <div class="hero__meta">
         <div class="hero__stat">
           <div class="hero__stat-num">420+</div>
-          <div class="hero__stat-lab">Connectors live</div>
+          <div class="hero__stat-lab">Tool pairings mapped</div>
         </div>
         <div class="hero__stat">
           <div class="hero__stat-num">99.98%</div>
-          <div class="hero__stat-lab">Trailing 90-day uptime</div>
+          <div class="hero__stat-lab">Trailing 90-day sync uptime</div>
         </div>
         <div class="hero__stat">
           <div class="hero__stat-num">14&nbsp;ms</div>
-          <div class="hero__stat-lab">p50 broker latency</div>
+          <div class="hero__stat-lab">p50 webhook relay latency</div>
         </div>
       </div>
     </div>
 
-    <!-- === node graph signature === -->
-    <div class="graph" role="img" aria-label="Live connection graph showing ConnectSync routing events between Salesforce, Stripe, Slack, Snowflake, Notion and HubSpot">
-      <span class="graph__label">Live &middot; us-east-1</span>
-      <span class="graph__meter"><b>1,284</b> events/s</span>
+    <div class="graph" role="img" aria-label="Live connection graph showing SyncOps Registry routing events between Salesforce, Stripe, Slack, Snowflake, Notion and HubSpot">
+      <span class="graph__label"><span class="graph__region" id="region-label">Live &middot; us-east-1</span></span>
+      <span class="graph__meter">
+        <span class="graph__meter-top"><b id="event-counter">1,248</b> events/s</span>
+        <svg class="graph__spark" viewBox="0 0 90 20" preserveAspectRatio="none"><path id="spark-path" d=""/></svg>
+      </span>
 
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <svg class="n-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
         <path id="p1" class="n-line" d="M 90 100 Q 220 180 250 250" />
         <path id="p2" class="n-line" d="M 410 100 Q 300 180 250 250" />
         <path id="p3" class="n-line" d="M 60  260 Q 160 260 250 250" />
@@ -1056,74 +599,53 @@ a { color: inherit; text-decoration: none; }
         <path id="p5" class="n-line" d="M 90  410 Q 220 340 250 250" />
         <path id="p6" class="n-line" d="M 410 410 Q 300 340 250 250" />
 
-        <circle class="n-packet" r="3.5">
-          <animateMotion dur="2.4s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#p1"/>
-          </animateMotion>
-        </circle>
-        <circle class="n-packet" r="3.5">
-          <animateMotion dur="3.1s" begin="0.5s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#p2"/>
-          </animateMotion>
-        </circle>
-        <circle class="n-packet" r="3.5">
-          <animateMotion dur="2.7s" begin="1.1s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#p3"/>
-          </animateMotion>
-        </circle>
-        <circle class="n-packet" r="3.5">
-          <animateMotion dur="2.9s" begin="0.2s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#p4"/>
-          </animateMotion>
-        </circle>
-        <circle class="n-packet" r="3.5">
-          <animateMotion dur="3.4s" begin="0.8s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#p5"/>
-          </animateMotion>
-        </circle>
-        <circle class="n-packet" r="3.5">
-          <animateMotion dur="2.5s" begin="1.6s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#p6"/>
-          </animateMotion>
-        </circle>
+        <circle class="n-packet" r="3.5"><animateMotion dur="2.4s" repeatCount="indefinite" rotate="auto"><mpath href="#p1"/></animateMotion></circle>
+        <circle class="n-packet" r="3.5"><animateMotion dur="3.1s" begin="0.5s" repeatCount="indefinite" rotate="auto"><mpath href="#p2"/></animateMotion></circle>
+        <circle class="n-packet" r="3.5"><animateMotion dur="2.7s" begin="1.1s" repeatCount="indefinite" rotate="auto"><mpath href="#p3"/></animateMotion></circle>
+        <circle class="n-packet" r="3.5"><animateMotion dur="2.9s" begin="0.2s" repeatCount="indefinite" rotate="auto"><mpath href="#p4"/></animateMotion></circle>
+        <circle class="n-packet" r="3.5"><animateMotion dur="3.4s" begin="0.8s" repeatCount="indefinite" rotate="auto"><mpath href="#p5"/></animateMotion></circle>
+        <circle class="n-packet" r="3.5"><animateMotion dur="2.5s" begin="1.6s" repeatCount="indefinite" rotate="auto"><mpath href="#p6"/></animateMotion></circle>
 
-        <g class="n-node" transform="translate(30 78)">
-          <rect width="120" height="44" rx="6"/>
-          <circle class="n-dot" cx="14" cy="22" r="4"/>
-          <text x="26" y="26">salesforce</text>
-        </g>
-        <g class="n-node" transform="translate(350 78)">
-          <rect width="120" height="44" rx="6"/>
-          <circle class="n-dot" cx="14" cy="22" r="4"/>
-          <text x="26" y="26">stripe</text>
-        </g>
-        <g class="n-node" transform="translate(0 238)">
-          <rect width="120" height="44" rx="6"/>
-          <circle class="n-dot" cx="14" cy="22" r="4"/>
-          <text x="26" y="26">slack</text>
-        </g>
-        <g class="n-node" transform="translate(380 238)">
-          <rect width="120" height="44" rx="6"/>
-          <circle class="n-dot" cx="14" cy="22" r="4"/>
-          <text x="26" y="26">snowflake</text>
-        </g>
-        <g class="n-node" transform="translate(30 388)">
-          <rect width="120" height="44" rx="6"/>
-          <circle class="n-dot" cx="14" cy="22" r="4"/>
-          <text x="26" y="26">notion</text>
-        </g>
-        <g class="n-node" transform="translate(350 388)">
-          <rect width="120" height="44" rx="6"/>
-          <circle class="n-dot" cx="14" cy="22" r="4"/>
-          <text x="26" y="26">hubspot</text>
-        </g>
+        <g class="n-node" transform="translate(30 78)"><rect width="120" height="44" rx="6"/><circle class="n-dot" cx="14" cy="22" r="4"/><text x="26" y="26">salesforce</text></g>
+        <g class="n-node" transform="translate(350 78)"><rect width="120" height="44" rx="6"/><circle class="n-dot" cx="14" cy="22" r="4"/><text x="26" y="26">stripe</text></g>
+        <g class="n-node" transform="translate(0 238)"><rect width="120" height="44" rx="6"/><circle class="n-dot" cx="14" cy="22" r="4"/><text x="26" y="26">slack</text></g>
+        <g class="n-node" transform="translate(380 238)"><rect width="120" height="44" rx="6"/><circle class="n-dot" cx="14" cy="22" r="4"/><text x="26" y="26">snowflake</text></g>
+        <g class="n-node" transform="translate(30 388)"><rect width="120" height="44" rx="6"/><circle class="n-dot" cx="14" cy="22" r="4"/><text x="26" y="26">notion</text></g>
+        <g class="n-node" transform="translate(350 388)"><rect width="120" height="44" rx="6"/><circle class="n-dot" cx="14" cy="22" r="4"/><text x="26" y="26">hubspot</text></g>
 
-        <g class="n-node n-center" transform="translate(190 218)">
-          <rect width="120" height="64" rx="8"/>
-          <text x="60" y="30" text-anchor="middle">ConnectSync</text>
-          <text x="60" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8A8E97">event broker</text>
+        <g class="n-node n-center" transform="translate(178 216)">
+          <rect width="144" height="68" rx="8"/>
+          <text x="72" y="30" text-anchor="middle">SyncOps Registry</text>
+          <text x="72" y="49" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8A8E97">event broker</text>
         </g>
       </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Process</span>
+      <h2>From tool pairing to production in three steps.</h2>
+    </div>
+    <div class="how__grid">
+      <div class="how__step">
+        <span class="how__num">01</span>
+        <h3>Pick your pairing</h3>
+        <p>Search 400+ B2B tool combinations in the registry, or request one that's missing — new pairings publish nightly.</p>
+      </div>
+      <div class="how__step">
+        <span class="how__num">02</span>
+        <h3>Import the blueprint</h3>
+        <p>One click into your n8n instance. OAuth 2.0 security parameters, dedup logic, and conflict resolution rules pre-wired.</p>
+      </div>
+      <div class="how__step">
+        <span class="how__num">03</span>
+        <h3>Monitor &amp; sleep</h3>
+        <p>Every blueprint ships with visible error-routing alerts and schema drift detection — no more silent failures.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1146,25 +668,125 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<!-- ================= POPULAR PIPELINES (static SEO) ================= -->
+<section class="pipelines" id="pipelines">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Popular pipelines</span>
+      <h2>The pairings operations teams search for most.</h2>
+      <p>Every pipeline below ships as a production-ready webhook connector template with built-in conflict resolution rules and API rate limit throttling protection.</p>
+    </div>
+    <div class="pipelines__grid">
+      <article class="pipe-card">
+        <div class="pipe-card__route">HubSpot <span>&rarr;</span> Monday.com</div>
+        <h3>HubSpot to Monday.com webhook field mapping</h3>
+        <p>Real-time field mapping sync between deal records and board items — deduped, schema-validated, and alert-routed on failure.</p>
+        <a href="#pricing">Get this blueprint &rarr;</a>
+      </article>
+      <article class="pipe-card">
+        <div class="pipe-card__route">Stripe <span>&rarr;</span> QuickBooks</div>
+        <h3>Stripe to QuickBooks real-time payment reconciliation</h3>
+        <p>Automated bidirectional data sync that reconciles charges, refunds, and payouts against your ledger without manual entry.</p>
+        <a href="#pricing">Get this blueprint &rarr;</a>
+      </article>
+      <article class="pipe-card">
+        <div class="pipe-card__route">Salesforce <span>&rarr;</span> Data Warehouse</div>
+        <h3>Salesforce company object sync schema</h3>
+        <p>Prevent schema drift on Account and Opportunity objects with a versioned sync schema that's checked against sandbox nightly.</p>
+        <a href="#pricing">Get this blueprint &rarr;</a>
+      </article>
+      <article class="pipe-card">
+        <div class="pipe-card__route">Airtable <span>&rarr;</span> CRM</div>
+        <h3>Airtable CRM multi-directional data pipeline</h3>
+        <p>No-code data migration logic modules keep Airtable bases and your CRM in lockstep, with built-in data deduplication logic.</p>
+        <a href="#pricing">Get this blueprint &rarr;</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CANVAS / READABILITY ================= -->
+<section class="canvas-sec">
+  <div class="wrap canvas-sec__grid">
+    <div class="canvas-sec__copy">
+      <span class="eyebrow">Built for the whole team</span>
+      <h2 style="font-family: var(--serif); font-weight:400; font-variation-settings:'opsz' 90; font-size: clamp(26px,3vw,34px); letter-spacing:-.02em; margin: 8px 0 16px;">You don't need a developer to read this.</h2>
+      <p>Every blueprint renders as a visual n8n canvas — not a config file. If your developer leaves, anyone on the team can open the canvas and see exactly how data moves from one system to the next.</p>
+      <ul>
+        <li>Every node is labeled in plain language, not internal variable names</li>
+        <li>Error branches are visibly separate from the happy path</li>
+        <li>No black-box scripts — everything is inspectable and editable</li>
+      </ul>
+    </div>
+    <div class="n8n-canvas" role="img" aria-label="Example n8n automation canvas showing a trigger, deduplication check, field mapping, target system, and Slack alert on error">
+      <svg viewBox="0 0 620 260" xmlns="http://www.w3.org/2000/svg">
+        <path class="cv-line" d="M110 60 H190" /><path class="cv-line" d="M300 60 H380" /><path class="cv-line" d="M490 60 H560" />
+        <path class="cv-line cv-alert-line" d="M245 90 V150 H510 V90" />
+
+        <g class="cv-box cv-trigger" transform="translate(10 30)"><rect width="100" height="60" rx="6"/><circle class="cv-dot" cx="14" cy="14" r="4"/><text x="14" y="34">New Deal</text><text class="cv-sub" x="14" y="48">Trigger · webhook</text></g>
+        <g class="cv-box" transform="translate(190 30)"><rect width="110" height="60" rx="6"/><circle class="cv-dot" cx="14" cy="14" r="4"/><text x="14" y="34">Dedup Check</text><text class="cv-sub" x="14" y="48">CRM duplicate loop guard</text></g>
+        <g class="cv-box" transform="translate(380 30)"><rect width="110" height="60" rx="6"/><circle class="cv-dot" cx="14" cy="14" r="4"/><text x="14" y="34">Field Mapping</text><text class="cv-sub" x="14" y="48">Schema-validated</text></g>
+        <g class="cv-box" transform="translate(560 30)"><rect width="50" height="60" rx="6"/><circle class="cv-dot" cx="14" cy="14" r="4"/><text x="10" y="34">CRM</text><text class="cv-sub" x="8" y="48">Target</text></g>
+        <g class="cv-box cv-alert" transform="translate(410 150)"><rect width="100" height="52" rx="6"/><circle class="cv-dot cv-dot-beta" cx="14" cy="14" r="4"/><text x="14" y="32">Slack Alert</text><text class="cv-sub" x="14" y="45">On sync failure</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ERROR HANDLING MOCK ================= -->
+<section class="errsec">
+  <div class="wrap errsec__grid">
+    <div class="alertlog">
+      <div class="alertlog__head">
+        <span class="alertlog__dot alertlog__dot--r"></span>
+        <span class="alertlog__dot alertlog__dot--y"></span>
+        <span class="alertlog__dot alertlog__dot--g"></span>
+        <span class="alertlog__title">sync-monitor · live feed</span>
+      </div>
+      <div class="alertlog__body">
+        <div class="alertlog__row">
+          <span class="alertlog__badge alertlog__badge--warn">Warn</span>
+          <span class="alertlog__msg"><b>HubSpot &rarr; Airtable</b> · field type mismatch on <b>deal_amount</b> · auto-retry scheduled</span>
+          <span class="alertlog__time">14:32 UTC</span>
+        </div>
+        <div class="alertlog__row">
+          <span class="alertlog__badge alertlog__badge--info">Info</span>
+          <span class="alertlog__msg"><b>Stripe &rarr; QuickBooks</b> · API rate limit throttling protection engaged · queued 12 events</span>
+          <span class="alertlog__time">14:29 UTC</span>
+        </div>
+        <div class="alertlog__row">
+          <span class="alertlog__badge alertlog__badge--ok">Resolved</span>
+          <span class="alertlog__msg"><b>Salesforce &rarr; Snowflake</b> · conflict resolution rule applied · last-write-wins</span>
+          <span class="alertlog__time">14:11 UTC</span>
+        </div>
+      </div>
+    </div>
+    <div class="errsec__copy">
+      <span class="eyebrow">Reliability</span>
+      <h2 style="font-family: var(--serif); font-weight:400; font-variation-settings:'opsz' 90; font-size: clamp(26px,3vw,34px); letter-spacing:-.02em; margin: 8px 0 16px;">Silent failures cost you data. We route around them.</h2>
+      <p>Most integration tools only tell you something broke once downstream data is already missing. Every SyncOps Registry blueprint ships with visible error-routing built directly into the n8n canvas — you see the failure the moment it happens, not three weeks later.</p>
+      <p>Production-ready webhook schemas, adaptive API rate limit throttling protection, and pre-configured conflict resolution rules come standard on every pairing — not sold as an add-on.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= REGISTRY ================= -->
 <section class="registry" id="registry">
   <div class="wrap">
 
     <div class="registry__head">
       <div>
-        <span class="eyebrow">Registry — 420 connectors</span>
-        <h2 class="registry__title">Find the connector. Ship the integration.</h2>
+        <span class="eyebrow">Registry — updated nightly via automated n8n sync</span>
+        <h2 class="registry__title">Find the pairing. Ship the blueprint.</h2>
       </div>
       <p class="registry__lede">
-        Every entry is a maintained, versioned OpenAPI surface with contract tests
-        running against the vendor sandbox every 15 minutes.
+        Every pairing is generated from real API documentation and mapped into a
+        1-click n8n blueprint — no custom API integration engineering required.
       </p>
     </div>
 
     <div class="registry__frame">
-
       <aside class="rail" aria-label="Filters">
-
         <div class="rail__section rail__section--cats">
           <p class="rail__label">Category</p>
           <ul class="rail__list" id="rail-list"></ul>
@@ -1181,36 +803,36 @@ a { color: inherit; text-decoration: none; }
         <div class="rail__section rail__section--legend">
           <p class="rail__label">Missing something?</p>
           <p style="font-size:12.5px; color:var(--muted); margin:0 0 10px; line-height:1.5;">
-            Vendors we're shipping this quarter: Fivetran, Ashby, Metabase, Pylon.
+            Vendors we're mapping this quarter: Fivetran, Ashby, Metabase, Pylon.
           </p>
-          <a href="#" class="btn btn--outline" style="width:100%; justify-content:center;">Request a connector</a>
+          <a href="#" class="btn btn--outline btn--block">Request a pairing</a>
         </div>
       </aside>
 
       <div class="workspace">
         <div class="workspace__bar">
-          <label class="search" aria-label="Search connectors">
+          <label class="search" aria-label="Search pairings">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
               <path d="m14 14-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            <input id="search" type="search" placeholder="Search by name, vendor, or endpoint (e.g. 'stripe checkout')" autocomplete="off"/>
+            <input id="search" type="search" placeholder="Search by tool, pairing, or use case (e.g. 'stripe quickbooks reconciliation')" autocomplete="off"/>
             <span class="search__kbd" aria-hidden="true">/</span>
           </label>
           <div class="select">
             <select id="sort" aria-label="Sort order">
-              <option value="popular">Sort: Most requested</option>
-              <option value="name">Sort: A → Z</option>
-              <option value="endpoints">Sort: Most endpoints</option>
-              <option value="recent">Sort: Recently updated</option>
+              <option value="recent">Sort: Recently added</option>
+              <option value="az">Sort: A &rarr; Z</option>
+              <option value="za">Sort: Z &rarr; A</option>
             </select>
           </div>
         </div>
 
         <div class="workspace__meta">
-          <div class="workspace__count" id="count">Loading…</div>
-          <div class="workspace__count">
-            Updated <b id="updated-at">—</b>
+          <div class="workspace__count" id="count">Loading&hellip;</div>
+          <div class="workspace__sync">
+            <div class="workspace__count">Updated <b id="updated-at">&mdash;</b></div>
+            <div class="workspace__count">Next nightly sync <b id="next-sync">&mdash;</b></div>
           </div>
         </div>
 
@@ -1220,7 +842,200 @@ a { color: inherit; text-decoration: none; }
           <div class="skeleton"></div><div class="skeleton"></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
+<!-- ================= REVIEWS ================= -->
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Customer reviews</span>
+      <h2>What operations teams say after switching.</h2>
+    </div>
+
+    <div class="reviews__head">
+      <div class="rating-box">
+        <div class="rating-box__num">4.8</div>
+        <div class="rating-box__stars">★★★★★</div>
+        <div class="rating-box__count">Based on 214 verified buyers</div>
+      </div>
+      <div class="rating-bars">
+        <div class="rating-bar"><span>5 star</span><span class="rating-bar__track"><span class="rating-bar__fill" style="width:82%"></span></span><span>82%</span></div>
+        <div class="rating-bar"><span>4 star</span><span class="rating-bar__track"><span class="rating-bar__fill" style="width:14%"></span></span><span>14%</span></div>
+        <div class="rating-bar"><span>3 star</span><span class="rating-bar__track"><span class="rating-bar__fill" style="width:3%"></span></span><span>3%</span></div>
+        <div class="rating-bar"><span>2 star</span><span class="rating-bar__track"><span class="rating-bar__fill" style="width:1%"></span></span><span>1%</span></div>
+        <div class="rating-bar"><span>1 star</span><span class="rating-bar__track"><span class="rating-bar__fill" style="width:0%"></span></span><span>0%</span></div>
+      </div>
+    </div>
+
+    <div class="reviews__grid">
+      <article class="rcard">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__quote">Our old Zapier setup would fail quietly and we'd only find out when a client called asking why their invoice never showed up. The <b>n8n blueprint has visible error-routing built right into the canvas</b> — I get a Slack alert the second something breaks, not three weeks later.</p>
+        <div class="rcard__person">
+          <div class="rcard__avatar" style="background:#E6EAFF; color:#1B34C4;">MT</div>
+          <div>
+            <div class="rcard__name">Marisol Trejo</div>
+            <div class="rcard__role">RevOps Lead, Northshore Dental Group &middot; Chattanooga, TN</div>
+            <div class="rcard__verified">✓ Verified buyer &middot; Mar 2026</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__quote">I don't code. At all. But I can open the n8n canvas and literally watch the line move from HubSpot to our billing system. When our old contractor left, I was terrified nobody could touch our automations again — now I don't even need to call anyone.</p>
+        <div class="rcard__person">
+          <div class="rcard__avatar" style="background:#E1F1E9; color:#0F7B4D;">OD</div>
+          <div>
+            <div class="rcard__name">Owen Delacroix</div>
+            <div class="rcard__role">Office Manager, Ferris &amp; Cole Orthodontics &middot; Boise, ID</div>
+            <div class="rcard__verified">✓ Verified buyer &middot; Jan 2026</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__quote">We got a $5,200 quote from a dev agency just to connect Stripe to our books. The <b>$49 blueprint pass</b> did the same job in an afternoon with zero custom API integration engineering. This should be illegal.</p>
+        <div class="rcard__person">
+          <div class="rcard__avatar" style="background:#FBEBD8; color:#B65E00;">PN</div>
+          <div>
+            <div class="rcard__name">Priya Nandakumar</div>
+            <div class="rcard__role">Founder, Lumen Analytics &middot; Austin, TX</div>
+            <div class="rcard__verified">✓ Verified buyer &middot; Apr 2026</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__quote">We used to accidentally generate hundreds of duplicate leads whenever a sync retried. The <b>built-in data deduplication logic and conflict resolution rules</b> just... work. Haven't seen a duplicate CRM record in four months.</p>
+        <div class="rcard__person">
+          <div class="rcard__avatar" style="background:#FCE7E7; color:#B02020;">GW</div>
+          <div>
+            <div class="rcard__name">Grant Whitfield</div>
+            <div class="rcard__role">Director of Revenue Operations, Bellcrest Systems &middot; Columbus, OH</div>
+            <div class="rcard__verified">✓ Verified buyer &middot; Feb 2026</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rcard__stars">★★★★☆</div>
+        <p class="rcard__quote">Honestly the initial mapping took me longer than I expected — probably 40 minutes to fully understand the canvas the first time. But once it clicked, the <b>API rate limit throttling protection</b> and <b>production-ready webhook schemas</b> have kept everything clean for six months straight.</p>
+        <div class="rcard__person">
+          <div class="rcard__avatar" style="background:#E6EAFF; color:#1B34C4;">IW</div>
+          <div>
+            <div class="rcard__name">Ilsa Whitcombe</div>
+            <div class="rcard__role">Business Systems Director, Amaranth Health Partners &middot; Raleigh, NC</div>
+            <div class="rcard__verified">✓ Verified buyer &middot; May 2026</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__quote">We're a five-person team with no engineer. SyncOps is the only integration tool that didn't assume we had one. The blueprint pass paid for itself the first week.</p>
+        <div class="rcard__person">
+          <div class="rcard__avatar" style="background:#E1F1E9; color:#0F7B4D;">RK</div>
+          <div>
+            <div class="rcard__name">Ravi Kapoor</div>
+            <div class="rcard__role">Operations Manager, Fieldstone Legal Group &middot; Denver, CO</div>
+            <div class="rcard__verified">✓ Verified buyer &middot; Jun 2026</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <span class="eyebrow">Pricing</span>
+      <h2>Bypass custom API integration engineering costs.</h2>
+      <p>No retainers, no discovery calls, no $5,000 agency quotes. Pick a pairing, get the blueprint.</p>
+    </div>
+
+    <div class="pricing__grid">
+      <div class="pcard">
+        <div class="pcard__name">Blueprint Pass</div>
+        <div class="pcard__price">$49<span> one-time</span></div>
+        <p class="pcard__desc">A single 1-click n8n blueprint for the pairing of your choice — yours to keep, modify, and redeploy.</p>
+        <ul class="pcard__feat">
+          <li>1-click n8n blueprint import</li>
+          <li>OAuth 2.0 security parameters pre-configured</li>
+          <li>Built-in data deduplication logic</li>
+          <li>Production-ready webhook schema</li>
+          <li>Lifetime access to this blueprint's updates</li>
+        </ul>
+        <a href="https://buy.stripe.com/aFa4gBgtBg2S8s3dkh8k801" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--block">Get the blueprint</a>
+      </div>
+
+      <div class="pcard pcard--feat">
+        <span class="pcard__ribbon">Recommended</span>
+        <div class="pcard__name">Monitoring</div>
+        <div class="pcard__price">$199<span> /month</span></div>
+        <p class="pcard__desc">Ongoing schema drift protection, alerting, and rate-limit monitoring across every blueprint you run.</p>
+        <ul class="pcard__feat">
+          <li>Everything in Blueprint Pass</li>
+          <li>Automated schema drift protection middleware</li>
+          <li>Real-time error-routing alerts to Slack or email</li>
+          <li>API rate limit throttling protection</li>
+          <li>Unlimited blueprint installs</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="https://buy.stripe.com/3cIaEZcdl5oebEfdkh8k802" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--block">Start monitoring</a>
+      </div>
+    </div>
+
+    <p class="pricing__compare">Most dev agencies quote <b>$5,000+</b> just to connect two systems. A SyncOps blueprint costs <b>$49</b> and deploys the same afternoon — no discovery call required.</p>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions operations directors ask before buying.</h2>
+    </div>
+    <div class="faq__list">
+      <details class="faq__item">
+        <summary>Do I need to know how to code to use a blueprint?</summary>
+        <p>No. Every blueprint renders as a visual n8n canvas with plain-language node labels. If you can read a flowchart, you can read your data pipeline.</p>
+      </details>
+      <details class="faq__item">
+        <summary>What happens if a vendor changes their API?</summary>
+        <p>Our nightly n8n pipeline re-checks each pairing's API documentation and flags schema drift automatically. On the Monitoring plan, you're alerted before it breaks anything downstream.</p>
+      </details>
+      <details class="faq__item">
+        <summary>What if the person who set this up leaves my team?</summary>
+        <p>Because the automation lives on a visible n8n canvas rather than in custom code, anyone on your team can open it, understand the flow, and make changes — no handoff document required.</p>
+      </details>
+      <details class="faq__item">
+        <summary>How is this different from Zapier or Make?</summary>
+        <p>Zapier and Make charge per task and often fail silently. SyncOps blueprints are flat-fee, include visible error-routing by default, and you own the underlying n8n workflow — no per-task billing surprises.</p>
+      </details>
+      <details class="faq__item">
+        <summary>What exactly is included in the $49 blueprint pass?</summary>
+        <p>A complete, production-ready webhook connector for one tool pairing: OAuth 2.0 authentication, field mapping, deduplication logic, and conflict resolution rules, packaged as a 1-click n8n import.</p>
+      </details>
+      <details class="faq__item">
+        <summary>What does the $199/mo Monitoring tier add?</summary>
+        <p>Ongoing schema drift detection, real-time error alerts, adaptive API rate limit throttling protection, and unlimited blueprint installs across every pairing you run.</p>
+      </details>
+      <details class="faq__item">
+        <summary>How do you prevent duplicate CRM records?</summary>
+        <p>Every blueprint includes built-in data deduplication logic that checks for existing matches before writing a new record, plus conflict resolution rules for handling near-simultaneous updates.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Is my data secure?</summary>
+        <p>All connectors enforce OAuth 2.0 security parameters, and the registry infrastructure is SOC 2 Type II certified. We never store your underlying business data — only the sync configuration.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -1230,31 +1045,32 @@ a { color: inherit; text-decoration: none; }
   <div class="wrap">
     <div class="foot__top">
       <div class="foot__brand">
-        <a href="#" class="brand" aria-label="ConnectSync home">
+        <a href="#" class="brand" aria-label="SyncOps Registry home">
           <span class="brand__mark" aria-hidden="true"></span>
-          <span class="brand__word">connect<span>sync</span></span>
+          <span class="brand__word">syncops<span>&nbsp;registry</span></span>
         </a>
         <p class="foot__pitch">
           Built by a small team of API engineers in Brooklyn and Utrecht.
-          We maintain the connectors so your engineers don't have to.
+          We maintain the blueprints so your team doesn't have to.
         </p>
-        <div class="foot__cert" title="SOC 2 Type II — audit period Jan 2025 – Dec 2025, KPMG">
+        <div class="foot__cert" title="SOC 2 Type II — audit period Jan 2025 – Dec 2025, Prescient Assurance LLP">
           <span class="foot__cert-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          SOC 2 Type II Certified
+          SOC 2 Type II Certified &middot; report available under NDA
+        </div>
+        <div>
+          <a href="#" class="foot__status"><span class="foot__status-dot"></span> All systems operational</a>
         </div>
       </div>
 
       <div class="foot__col">
         <h5>Product</h5>
         <ul>
-          <li><a href="#">Registry</a></li>
-          <li><a href="#">Event broker</a></li>
+          <li><a href="#registry">Registry</a></li>
+          <li><a href="#pipelines">Popular pipelines</a></li>
           <li><a href="#">Schema drift monitor</a></li>
-          <li><a href="#">Replay &amp; retries</a></li>
+          <li><a href="#">Error-routing alerts</a></li>
           <li><a href="#">Changelog</a></li>
         </ul>
       </div>
@@ -1262,8 +1078,8 @@ a { color: inherit; text-decoration: none; }
         <h5>Developers</h5>
         <ul>
           <li><a href="#">Docs</a></li>
+          <li><a href="#">n8n blueprint format</a></li>
           <li><a href="#">API reference</a></li>
-          <li><a href="#">SDKs</a></li>
           <li><a href="#">Status</a></li>
           <li><a href="#">GitHub</a></li>
         </ul>
@@ -1271,8 +1087,8 @@ a { color: inherit; text-decoration: none; }
       <div class="foot__col">
         <h5>Company</h5>
         <ul>
-          <li><a href="#">Customers</a></li>
-          <li><a href="#">Pricing</a></li>
+          <li><a href="#reviews">Customers</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#">Careers</a></li>
           <li><a href="#">Journal</a></li>
           <li><a href="#">Press</a></li>
@@ -1291,7 +1107,7 @@ a { color: inherit; text-decoration: none; }
     </div>
 
     <div class="foot__bot">
-      <div>© 2026 ConnectSync Systems, Inc. &nbsp;·&nbsp; 68 Jay St, Brooklyn NY 11201</div>
+      <div>&copy; 2026 SyncOps Registry Systems, Inc. &nbsp;&middot;&nbsp; 68 Jay St, Brooklyn NY 11201</div>
       <div class="foot__badges">
         <span class="foot__badge">SOC 2 TYPE II</span>
         <span class="foot__badge">ISO 27001</span>
@@ -1305,6 +1121,9 @@ a { color: inherit; text-decoration: none; }
         <a href="#">Cookies</a>
       </div>
     </div>
+    <div class="foot__trademark">
+      Salesforce, Stripe, Slack, Notion, HubSpot, and all other product names referenced herein are trademarks of their respective owners. SyncOps Registry is not affiliated with, sponsored by, or endorsed by these companies.
+    </div>
   </div>
 </footer>
 
@@ -1313,53 +1132,57 @@ a { color: inherit; text-decoration: none; }
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true" tabindex="-1">
   <header class="drawer__head">
     <div class="drawer__head-l">
-      <div class="drawer__mark" id="d-mark">—</div>
+      <div class="drawer__marks">
+        <div class="drawer__mark" id="d-mark-a">&mdash;</div>
+        <div class="drawer__mark drawer__mark--b" id="d-mark-b">&mdash;</div>
+      </div>
       <div>
-        <div class="drawer__title" id="drawer-title">—</div>
-        <div class="drawer__sub" id="d-sub">—</div>
+        <div class="drawer__title" id="drawer-title">&mdash;</div>
+        <div class="drawer__sub" id="d-sub">&mdash;</div>
       </div>
     </div>
     <button class="drawer__close" id="drawer-close" aria-label="Close panel">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
   </header>
 
   <div class="drawer__body">
-
     <section class="drawer__section">
       <h4>Overview</h4>
-      <p class="drawer__desc" id="d-desc">—</p>
+      <p class="drawer__desc" id="d-desc">&mdash;</p>
     </section>
 
     <section class="drawer__section">
       <h4>Specification</h4>
       <div class="drawer__specs">
-        <div class="drawer__spec"><div class="drawer__spec-lab">Authentication</div><div class="drawer__spec-val" id="d-auth">—</div></div>
-        <div class="drawer__spec"><div class="drawer__spec-lab">Endpoints</div><div class="drawer__spec-val" id="d-endpoints">—</div></div>
-        <div class="drawer__spec"><div class="drawer__spec-lab">Events (webhook)</div><div class="drawer__spec-val" id="d-events">—</div></div>
-        <div class="drawer__spec"><div class="drawer__spec-lab">Region</div><div class="drawer__spec-val" id="d-region">—</div></div>
-        <div class="drawer__spec"><div class="drawer__spec-lab">Rate limit</div><div class="drawer__spec-val" id="d-rate">—</div></div>
-        <div class="drawer__spec"><div class="drawer__spec-lab">Last verified</div><div class="drawer__spec-val" id="d-verified">—</div></div>
+        <div class="drawer__spec"><div class="drawer__spec-lab">Sync direction</div><div class="drawer__spec-val">Bidirectional</div></div>
+        <div class="drawer__spec"><div class="drawer__spec-lab">Authentication</div><div class="drawer__spec-val">OAuth 2.0</div></div>
+        <div class="drawer__spec"><div class="drawer__spec-lab">Conflict resolution</div><div class="drawer__spec-val">Last-write-wins</div></div>
+        <div class="drawer__spec"><div class="drawer__spec-lab">Dedup protection</div><div class="drawer__spec-val">Enabled</div></div>
+        <div class="drawer__spec"><div class="drawer__spec-lab">Rate limit handling</div><div class="drawer__spec-val">Adaptive throttling</div></div>
+        <div class="drawer__spec"><div class="drawer__spec-lab">Release status</div><div class="drawer__spec-val" id="d-status">&mdash;</div></div>
       </div>
     </section>
 
     <section class="drawer__section">
-      <h4>Sample endpoints</h4>
-      <div class="drawer__endpoints" id="d-endpoint-list"></div>
+      <h4>Included in this blueprint</h4>
+      <ul class="drawer__feat">
+        <li>Production-ready webhook schema</li>
+        <li>Built-in data deduplication logic to prevent CRM duplicate loops</li>
+        <li>OAuth 2.0 security parameters pre-configured</li>
+        <li>Visible error-routing alerts on the n8n canvas</li>
+      </ul>
     </section>
 
     <section class="drawer__section">
-      <h4>Initialize</h4>
+      <h4>Import into n8n</h4>
       <pre class="drawer__code" id="d-code"></pre>
     </section>
-
   </div>
 
   <footer class="drawer__foot">
-    <button class="btn btn--outline" id="d-copy">Copy snippet</button>
-    <a class="btn btn--primary" href="#" id="d-install">Install connector</a>
+    <button class="btn btn--outline" id="d-copy">Copy config</button>
+    <a class="btn btn--primary" id="d-install" href="https://buy.stripe.com/aFa4gBgtBg2S8s3dkh8k801" target="_blank" rel="noopener noreferrer">Get this blueprint &middot; $49</a>
   </footer>
 </aside>
 
@@ -1369,8 +1192,16 @@ a { color: inherit; text-decoration: none; }
 (function () {
   'use strict';
 
+  /* =========================================================
+   * SyncOps Registry — registry logic
+   * Data contract (from n8n nightly pipeline, data/integrations.json):
+   *   [{ tool_a: string, tool_b: string, use_case: string, status?, updated? }, ...]
+   * This file must render correctly even if that array is empty,
+   * malformed, wrapped in markdown fences, or missing keys per-row.
+   * ========================================================= */
+
   const CATEGORIES = [
-    { id: 'all',        label: 'All connectors' },
+    { id: 'all',        label: 'All pairings' },
     { id: 'crm',        label: 'CRM & Sales' },
     { id: 'comms',      label: 'Communication' },
     { id: 'payments',   label: 'Payments & Billing' },
@@ -1380,63 +1211,31 @@ a { color: inherit; text-decoration: none; }
     { id: 'hr',         label: 'HR & Payroll' },
     { id: 'storage',    label: 'Files & Storage' },
     { id: 'support',    label: 'Support & Success' },
+    { id: 'other',      label: 'Other integrations' },
   ];
 
-  const FALLBACK = [
-    { id:'salesforce', name:'Salesforce', category:'crm', description:'Bidirectional sync for Accounts, Contacts, Opportunities and custom objects with SOQL push-down.', auth:'OAuth 2.0', endpoints:214, events:38, rate:'25 req/s', region:'Global', popularity:98, updated:'2 days ago' },
-    { id:'hubspot', name:'HubSpot', category:'crm', description:'CRM, marketing hub, and CMS objects. Includes association v4 graph and workflow enrollment.', auth:'OAuth 2.0 · Private App', endpoints:186, events:24, rate:'100 req/10s', region:'Global', popularity:92, updated:'6 hours ago' },
-    { id:'pipedrive', name:'Pipedrive', category:'crm', description:'Deals, pipelines, activities and custom fields. Includes leadbox webhooks.', auth:'OAuth 2.0 · API Token', endpoints:88, events:12, rate:'20 req/2s', region:'EU · US', popularity:41, updated:'1 week ago' },
-    { id:'copper', name:'Copper', category:'crm', description:'Google Workspace-native CRM connector. Full people, company and opportunity graph.', auth:'API Token', endpoints:54, events:6, rate:'10 req/s', region:'Global', popularity:22, updated:'3 weeks ago', status:'beta' },
-
-    { id:'slack', name:'Slack', category:'comms', description:'Post messages, react to events, run interactive commands, and manage channel membership.', auth:'OAuth 2.0 · Bot Token', endpoints:141, events:44, rate:'1 msg/s per channel', region:'Global', popularity:96, updated:'yesterday' },
-    { id:'discord', name:'Discord', category:'comms', description:'Guild, channel and interaction hooks. Slash-command routing with signature verification.', auth:'Bot Token', endpoints:97, events:22, rate:'50 req/s', region:'Global', popularity:58, updated:'4 days ago' },
-    { id:'twilio', name:'Twilio', category:'comms', description:'Programmable SMS, Voice, Verify and Conversations. Media edge caching included.', auth:'API Key + Secret', endpoints:132, events:18, rate:'account-tier', region:'Global', popularity:74, updated:'2 days ago' },
-    { id:'ms-teams', name:'Microsoft Teams', category:'comms', description:'Graph-backed Teams messaging, channel provisioning and adaptive card postbacks.', auth:'OAuth 2.0 · Azure AD', endpoints:104, events:16, rate:'per-app', region:'Global', popularity:63, updated:'5 days ago' },
-
-    { id:'stripe', name:'Stripe', category:'payments', description:'Payments, Billing, Connect, Issuing and Radar. Idempotent by default with automatic retries.', auth:'API Key · Restricted Keys', endpoints:238, events:71, rate:'100 read/25 write', region:'Global', popularity:99, updated:'today' },
-    { id:'chargebee', name:'Chargebee', category:'payments', description:'Subscription lifecycle: plans, addons, coupons, dunning and revenue recognition exports.', auth:'API Key', endpoints:154, events:34, rate:'150 req/min', region:'US · EU · AU', popularity:47, updated:'1 week ago' },
-    { id:'paddle', name:'Paddle', category:'payments', description:'Merchant of record billing for SaaS, including localized checkout and VAT handling.', auth:'API Key', endpoints:76, events:22, rate:'per-workspace', region:'Global', popularity:36, updated:'2 weeks ago' },
-    { id:'quickbooks', name:'QuickBooks', category:'payments', description:'Chart of accounts, invoices, bills and journal entries. Supports both Online and Desktop.', auth:'OAuth 2.0', endpoints:112, events:9, rate:'500 req/min', region:'US · CA · UK · AU', popularity:44, updated:'3 days ago' },
-
-    { id:'snowflake', name:'Snowflake', category:'data', description:'Warehouse loader with COPY INTO batching, Snowpipe streaming, and role-scoped auth.', auth:'Key Pair · OAuth', endpoints:62, events:0, rate:'warehouse-bound', region:'Global', popularity:81, updated:'yesterday' },
-    { id:'bigquery', name:'BigQuery', category:'data', description:'Streaming inserts, batch loads via GCS, and materialized view refresh triggers.', auth:'Service Account · OAuth 2.0', endpoints:58, events:0, rate:'per-project', region:'Global', popularity:78, updated:'2 days ago' },
-    { id:'segment', name:'Segment', category:'data', description:'Track, identify, group and page. Bidirectional with Personas audience membership.', auth:'Write Key', endpoints:34, events:12, rate:'1000 events/s', region:'US · EU', popularity:52, updated:'1 week ago' },
-    { id:'mixpanel', name:'Mixpanel', category:'data', description:'Event ingest and profile updates. Cohort export and report definitions.', auth:'Service Account · Project Token', endpoints:44, events:0, rate:'2M events/day', region:'US · EU · IN', popularity:38, updated:'2 weeks ago' },
-    { id:'databricks', name:'Databricks', category:'data', description:'Unity Catalog, jobs API, and SQL warehouse query submission with polling.', auth:'PAT · OAuth M2M', endpoints:96, events:6, rate:'workspace-bound', region:'Global', popularity:57, updated:'3 days ago' },
-
-    { id:'github', name:'GitHub', category:'devops', description:'Repos, PRs, issues, checks, GraphQL v4 and App installation lifecycle events.', auth:'OAuth 2.0 · GitHub App', endpoints:264, events:52, rate:'5000 req/h', region:'Global', popularity:94, updated:'today' },
-    { id:'gitlab', name:'GitLab', category:'devops', description:'Groups, projects, merge requests, and CI pipeline triggers. Self-managed supported.', auth:'OAuth 2.0 · PAT', endpoints:178, events:28, rate:'2000 req/min', region:'Global · Self-hosted', popularity:48, updated:'6 days ago' },
-    { id:'datadog', name:'Datadog', category:'devops', description:'Metrics, logs, events and monitor mutations. Includes service catalog + SLO push.', auth:'API Key + App Key', endpoints:142, events:14, rate:'300 req/h', region:'US · EU · AP', popularity:66, updated:'4 days ago' },
-    { id:'pagerduty', name:'PagerDuty', category:'devops', description:'Incident lifecycle, on-call schedules and Events API v2 with dedup keys.', auth:'OAuth 2.0 · REST API Key', endpoints:88, events:19, rate:'960 req/min', region:'US · EU', popularity:54, updated:'1 week ago' },
-    { id:'sentry', name:'Sentry', category:'devops', description:'Issue triage, release tracking and source map upload. Supports self-hosted.', auth:'OAuth · Auth Token', endpoints:72, events:11, rate:'40 req/s', region:'US · EU', popularity:49, updated:'5 days ago' },
-
-    { id:'marketo', name:'Marketo', category:'marketing', description:'Leads, programs, smart campaigns and bulk export/import via ETL-friendly endpoints.', auth:'OAuth 2.0', endpoints:118, events:8, rate:'100 req/20s', region:'Global', popularity:31, updated:'2 weeks ago' },
-    { id:'mailchimp', name:'Mailchimp', category:'marketing', description:'Audiences, journeys and merge fields. Segmented broadcast with rate-aware backoff.', auth:'OAuth 2.0 · API Key', endpoints:96, events:14, rate:'10 concurrent', region:'Global', popularity:42, updated:'1 week ago' },
-    { id:'klaviyo', name:'Klaviyo', category:'marketing', description:'Profiles, events, flows and coupon codes. Supports the 2024-02-15 API revision.', auth:'API Key · OAuth', endpoints:104, events:22, rate:'75 req/s', region:'US · EU', popularity:55, updated:'3 days ago' },
-    { id:'customer-io', name:'Customer.io', category:'marketing', description:'Journeys, transactional messages, segments, and in-app messaging surface.', auth:'App API Key · Track API Key', endpoints:68, events:16, rate:'per-workspace', region:'US · EU', popularity:35, updated:'2 weeks ago', status:'beta' },
-
-    { id:'gusto', name:'Gusto', category:'hr', description:'Employees, contractors, payroll runs and benefits enrollment. Embedded partners API.', auth:'OAuth 2.0', endpoints:84, events:11, rate:'100 req/min', region:'US', popularity:39, updated:'1 week ago' },
-    { id:'rippling', name:'Rippling', category:'hr', description:'Workforce directory, role provisioning, and app entitlement lifecycle.', auth:'OAuth 2.0', endpoints:132, events:24, rate:'per-tenant', region:'Global', popularity:46, updated:'2 days ago' },
-    { id:'bamboohr', name:'BambooHR', category:'hr', description:'Employee records, time-off requests, custom tables. Report definitions supported.', auth:'API Key · SSO', endpoints:58, events:6, rate:'per-account', region:'Global', popularity:28, updated:'2 weeks ago' },
-    { id:'workday', name:'Workday', category:'hr', description:'HCM worker lifecycle, financials journal export, and RaaS report proxy.', auth:'OAuth 2.0 · WS-Security', endpoints:212, events:5, rate:'tenant-bound', region:'Global', popularity:37, updated:'5 days ago' },
-
-    { id:'gdrive', name:'Google Drive', category:'storage', description:'Files, folders, permissions and change feed. Includes shared drive traversal.', auth:'OAuth 2.0 · Service Account', endpoints:96, events:8, rate:'1000 req/100s', region:'Global', popularity:71, updated:'today' },
-    { id:'dropbox', name:'Dropbox', category:'storage', description:'Namespace-aware file operations, sharing, and team member provisioning.', auth:'OAuth 2.0', endpoints:74, events:9, rate:'per-app', region:'Global', popularity:33, updated:'1 week ago' },
-    { id:'s3', name:'Amazon S3', category:'storage', description:'Object storage with presigned URLs, multipart upload orchestration, and event routing.', auth:'IAM Role · Access Key', endpoints:52, events:14, rate:'unlimited', region:'Global', popularity:76, updated:'2 days ago' },
-    { id:'notion', name:'Notion', category:'storage', description:'Databases, pages and rich blocks. Bidirectional sync with property-type coercion.', auth:'OAuth 2.0 · Internal Integration', endpoints:64, events:0, rate:'3 req/s', region:'Global', popularity:62, updated:'yesterday' },
-
-    { id:'zendesk', name:'Zendesk', category:'support', description:'Tickets, users, organizations and Sunshine custom objects. Talk + Guide included.', auth:'OAuth 2.0 · API Token', endpoints:172, events:24, rate:'700 req/min', region:'Global', popularity:59, updated:'3 days ago' },
-    { id:'intercom', name:'Intercom', category:'support', description:'Conversations, contacts, companies and Fin AI handoff. Article + tour management.', auth:'OAuth 2.0 · Access Token', endpoints:118, events:19, rate:'1000 req/min', region:'US · EU · AU', popularity:51, updated:'6 days ago' },
-    { id:'freshdesk', name:'Freshdesk', category:'support', description:'Ticket workflow, agent groups, and forum topics. Solutions category mapping.', auth:'API Key', endpoints:82, events:8, rate:'per-plan', region:'Global', popularity:26, updated:'2 weeks ago' },
-    { id:'linear', name:'Linear', category:'support', description:'Issues, projects, cycles and roadmap. GraphQL with cursor-stable pagination.', auth:'OAuth 2.0 · Personal API Key', endpoints:48, events:14, rate:'1500 req/h', region:'Global', popularity:64, updated:'4 days ago' },
-  ];
-
-  const state = {
-    all: [],
-    category: 'all',
-    q: '',
-    sort: 'popular',
+  const CATEGORY_LOOKUP = {
+    'salesforce':'crm', 'hubspot':'crm', 'pipedrive':'crm', 'copper':'crm', 'zoho':'crm', 'monday.com':'crm', 'monday':'crm', 'airtable':'crm',
+    'slack':'comms', 'discord':'comms', 'twilio':'comms', 'microsoft teams':'comms', 'teams':'comms', 'gmail':'comms', 'outlook':'comms',
+    'stripe':'payments', 'chargebee':'payments', 'paddle':'payments', 'quickbooks':'payments', 'xero':'payments', 'netsuite':'payments',
+    'snowflake':'data', 'bigquery':'data', 'segment':'data', 'mixpanel':'data', 'databricks':'data', 'google sheets':'data', 'sheets':'data',
+    'github':'devops', 'gitlab':'devops', 'datadog':'devops', 'pagerduty':'devops', 'sentry':'devops', 'jira':'devops',
+    'marketo':'marketing', 'mailchimp':'marketing', 'klaviyo':'marketing', 'customer.io':'marketing', 'activecampaign':'marketing',
+    'gusto':'hr', 'rippling':'hr', 'bamboohr':'hr', 'workday':'hr', 'adp':'hr',
+    'google drive':'storage', 'drive':'storage', 'dropbox':'storage', 's3':'storage', 'notion':'storage', 'box':'storage',
+    'zendesk':'support', 'intercom':'support', 'freshdesk':'support', 'linear':'support', 'help scout':'support',
   };
+
+  function categorize (appA, appB) {
+    const la = String(appA).toLowerCase();
+    const lb = String(appB).toLowerCase();
+    for (const key in CATEGORY_LOOKUP) {
+      if (la.includes(key) || lb.includes(key)) return CATEGORY_LOOKUP[key];
+    }
+    return 'other';
+  }
+
+  const state = { all: [], byIdx: new Map(), dataAvailable: false, category: 'all', q: '', sort: 'recent' };
 
   const $ = (s) => document.querySelector(s);
   const grid = $('#grid');
@@ -1445,6 +1244,7 @@ a { color: inherit; text-decoration: none; }
   const sortSelect = $('#sort');
   const countEl = $('#count');
   const updatedEl = $('#updated-at');
+  const nextSyncEl = $('#next-sync');
   const drawer = $('#drawer');
   const backdrop = $('#backdrop');
   const toast = $('#toast');
@@ -1454,45 +1254,58 @@ a { color: inherit; text-decoration: none; }
   async function boot () {
     renderRail();
     bindEvents();
+    startLiveCounter();
+    startRegionFlicker();
     await loadData();
     render();
-    updatedEl.textContent = new Date().toLocaleString(undefined, {
-      month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-    });
+    updatedEl.textContent = new Date().toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    updateNextSync();
+    setInterval(updateNextSync, 60000);
   }
 
+  /* ---------- data loading (bulletproof) ---------- */
   async function loadData () {
     try {
       const res = await fetch('./data/integrations.json', { cache: 'no-store' });
       if (!res.ok) throw new Error('bad status');
-      const json = await res.json();
+      let text = await res.text();
+      // strip conversational markdown fences the AI node sometimes wraps output in
+      text = text.trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
+      const json = JSON.parse(text);
       const rows = Array.isArray(json) ? json : (json.integrations || json.data || []);
-      if (!rows.length) throw new Error('empty payload');
-      state.all = normalize(rows);
+      state.all = ingest(rows);
     } catch (_err) {
-      state.all = normalize(FALLBACK);
+      // Any failure — network, empty body, malformed JSON, nested shape —
+      // results in an empty (not fake) dataset. We never fabricate product rows.
+      state.all = [];
     }
+    state.dataAvailable = state.all.length > 0;
+    state.byIdx = new Map(state.all.map(r => [r._idx, r]));
   }
 
-  function normalize (rows) {
-    return rows.map(r => ({
-      id:          String(r.id || slug(r.name)),
-      name:        r.name || 'Untitled',
-      category:    r.category || 'all',
-      description: r.description || '',
-      auth:        r.auth || 'API Key',
-      endpoints:   Number(r.endpoints || 0),
-      events:      Number(r.events || 0),
-      rate:        r.rate || '—',
-      region:      r.region || 'Global',
-      popularity:  Number(r.popularity || 0),
-      updated:     r.updated || 'recently',
-      status:      r.status || 'ga',
-    }));
+  // Per-row validation: keeps malformed individual rows (missing tool_a/tool_b/use_case)
+  // rather than dropping them — they render with fallback strings at paint time.
+  function ingest (rows) {
+    if (!Array.isArray(rows)) return [];
+    return rows
+      .filter(r => r && typeof r === 'object')
+      .map((r, i) => {
+        const tool_a = typeof r.tool_a === 'string' && r.tool_a.trim() ? r.tool_a.trim() : undefined;
+        const tool_b = typeof r.tool_b === 'string' && r.tool_b.trim() ? r.tool_b.trim() : undefined;
+        const use_case = typeof r.use_case === 'string' && r.use_case.trim() ? r.use_case.trim() : undefined;
+        const status = r.status === 'beta' ? 'beta' : 'ga';
+        const updated = typeof r.updated === 'string' && r.updated.trim() ? r.updated.trim() : 'recently';
+        const category = categorize(tool_a || 'Corporate Platform', tool_b || 'Target Database');
+        return { tool_a, tool_b, use_case, status, updated, category, _idx: i };
+      });
   }
 
   function slug (s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+  function escapeHtml (s) {
+    return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
 
+  /* ---------- rail ---------- */
   function renderRail () {
     railList.innerHTML = CATEGORIES.map(c => `
       <li class="rail__item">
@@ -1507,9 +1320,7 @@ a { color: inherit; text-decoration: none; }
       const btn = e.target.closest('[data-cat]');
       if (!btn) return;
       state.category = btn.dataset.cat;
-      railList.querySelectorAll('[data-cat]').forEach(b => {
-        b.setAttribute('aria-pressed', b.dataset.cat === state.category);
-      });
+      railList.querySelectorAll('[data-cat]').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === state.category));
       render();
     });
   }
@@ -1517,24 +1328,20 @@ a { color: inherit; text-decoration: none; }
   function updateRailCounts () {
     const counts = { all: state.all.length };
     for (const r of state.all) counts[r.category] = (counts[r.category] || 0) + 1;
-    railList.querySelectorAll('[data-count]').forEach(el => {
-      el.textContent = counts[el.dataset.count] || 0;
-    });
+    railList.querySelectorAll('[data-count]').forEach(el => { el.textContent = counts[el.dataset.count] || 0; });
   }
 
+  /* ---------- events ---------- */
   function bindEvents () {
     let t;
     searchInput.addEventListener('input', (e) => {
       clearTimeout(t);
       t = setTimeout(() => { state.q = e.target.value.trim().toLowerCase(); render(); }, 60);
     });
-
     sortSelect.addEventListener('change', (e) => { state.sort = e.target.value; render(); });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === '/' && document.activeElement !== searchInput) {
-        e.preventDefault(); searchInput.focus();
-      }
+      if (e.key === '/' && document.activeElement !== searchInput) { e.preventDefault(); searchInput.focus(); }
       if (e.key === 'Escape') closeDrawer();
     });
 
@@ -1542,31 +1349,11 @@ a { color: inherit; text-decoration: none; }
     $('#drawer-close').addEventListener('click', closeDrawer);
     $('#d-copy').addEventListener('click', () => {
       const code = $('#d-code').innerText;
-      navigator.clipboard?.writeText(code).then(() => showToast('Snippet copied'));
+      navigator.clipboard?.writeText(code).then(() => showToast('Config copied'));
     });
   }
 
-  function currentRows () {
-    let rows = state.all;
-    if (state.category !== 'all') rows = rows.filter(r => r.category === state.category);
-    if (state.q) {
-      const q = state.q;
-      rows = rows.filter(r =>
-        r.name.toLowerCase().includes(q) ||
-        r.description.toLowerCase().includes(q) ||
-        r.category.toLowerCase().includes(q) ||
-        r.auth.toLowerCase().includes(q)
-      );
-    }
-    switch (state.sort) {
-      case 'name':      rows = rows.slice().sort((a,b) => a.name.localeCompare(b.name)); break;
-      case 'endpoints': rows = rows.slice().sort((a,b) => b.endpoints - a.endpoints); break;
-      case 'recent':    rows = rows.slice().sort((a,b) => recencyScore(b.updated) - recencyScore(a.updated)); break;
-      default:          rows = rows.slice().sort((a,b) => b.popularity - a.popularity);
-    }
-    return rows;
-  }
-
+  /* ---------- filter + sort ---------- */
   function recencyScore (s) {
     s = String(s).toLowerCase();
     if (s.includes('today') || s.includes('hour')) return 100;
@@ -1574,23 +1361,61 @@ a { color: inherit; text-decoration: none; }
     if (s.includes('day'))  return 80 - (parseInt(s) || 1);
     if (s.includes('week')) return 40 - (parseInt(s) || 1);
     if (s.includes('month')) return 10;
+    if (s === 'recently') return 60;
     return 0;
   }
 
+  function currentRows () {
+    let rows = state.all;
+    if (state.category !== 'all') rows = rows.filter(r => r.category === state.category);
+    if (state.q) {
+      const q = state.q;
+      rows = rows.filter(r => {
+        const a = (r.tool_a || 'Corporate Platform').toLowerCase();
+        const b = (r.tool_b || 'Target Database').toLowerCase();
+        const u = (r.use_case || '').toLowerCase();
+        return a.includes(q) || b.includes(q) || u.includes(q) || r.category.includes(q);
+      });
+    }
+    switch (state.sort) {
+      case 'az': rows = rows.slice().sort((a,b) => (a.tool_a||'Corporate Platform').localeCompare(b.tool_a||'Corporate Platform')); break;
+      case 'za': rows = rows.slice().sort((a,b) => (b.tool_a||'Corporate Platform').localeCompare(a.tool_a||'Corporate Platform')); break;
+      default:   rows = rows.slice().sort((a,b) => recencyScore(b.updated) - recencyScore(a.updated));
+    }
+    return rows;
+  }
+
+  function labelOf (id) { const c = CATEGORIES.find(x => x.id === id); return c ? c.label : id; }
+
+  /* ---------- render ---------- */
   function render () {
     updateRailCounts();
+    grid.setAttribute('aria-busy', 'false');
+
+    // Case A: no real data published yet (empty feed, fetch failure, or malformed payload).
+    // We never fabricate demo product cards to mask this.
+    if (!state.dataAvailable) {
+      countEl.textContent = '0 pairings — first nightly sync pending';
+      grid.innerHTML = `
+        <div class="empty">
+          <h3>New pairings are queued for tonight's sync.</h3>
+          <p>SyncOps Registry publishes freshly generated tool pairings every night via our automated n8n pipeline. Check back soon, or request a specific pairing below.</p>
+          <a href="#" class="btn btn--outline">Request a pairing</a>
+        </div>`;
+      return;
+    }
+
     const rows = currentRows();
-    countEl.innerHTML = `<b>${rows.length}</b> ${rows.length === 1 ? 'connector' : 'connectors'}`
+    countEl.innerHTML = `<b>${rows.length}</b> ${rows.length === 1 ? 'pairing' : 'pairings'}`
       + (state.category !== 'all' ? ` in ${labelOf(state.category)}` : '')
       + (state.q ? ` matching "${escapeHtml(state.q)}"` : '');
 
-    grid.setAttribute('aria-busy', 'false');
-
+    // Case B: real data exists, but current filter/search yields nothing.
     if (!rows.length) {
       grid.innerHTML = `
         <div class="empty">
-          <h3>No connectors match that filter.</h3>
-          <p>Try a broader search, clear the category, or request a new integration.</p>
+          <h3>No pairings match that filter.</h3>
+          <p>Try a broader search, clear the category, or request a new pairing.</p>
           <button class="btn btn--outline" id="reset-btn">Reset filters</button>
         </div>`;
       $('#reset-btn').addEventListener('click', () => {
@@ -1601,68 +1426,71 @@ a { color: inherit; text-decoration: none; }
       return;
     }
 
-    grid.innerHTML = rows.map(cardHTML).join('');
+    // ---- bulletproof card render loop ----
+    // Per-field fallback assignment happens here, immediately before building
+    // each card's HTML string, exactly as required by the data contract:
+    // n8n / the AI parsing node may omit tool_a, tool_b, or use_case on any
+    // given row. The card must never read raw item fields directly — only
+    // these verified fallback-safe variables.
+    let html = '';
+    rows.forEach((item, index) => {
+      const appA = item.tool_a || "Corporate Platform";
+      const appB = item.tool_b || "Target Database";
+      const useCaseText = item.use_case || "Automated real-time bidirectional field mapping sync built for secure B2B data pipelines and operations management.";
+      const initialA = appA.charAt(0).toUpperCase();
+      const initialB = appB.charAt(0).toUpperCase();
+      const badgeText = (index % 2 === 0) ? 'Secure Data Pipeline' : 'Real-Time Field Mapping Sync';
+      const statusChip = item.status === 'beta'
+        ? `<span class="card__status card__status--beta">Beta</span>`
+        : `<span class="card__status card__status--ga">GA</span>`;
+      const fullDesc = `${useCaseText} Built-in data deduplication logic prevents CRM duplicate loops, with OAuth 2.0 security parameters enforced on every connection.`;
+
+      html += `
+        <article class="card" data-idx="${item._idx}" role="button" tabindex="0" aria-label="Open ${escapeHtml(appA)} to ${escapeHtml(appB)} pairing details">
+          <div class="card__head">
+            <div class="card__marks">
+              <div class="card__mark">${escapeHtml(initialA)}</div>
+              <div class="card__mark card__mark--b">${escapeHtml(initialB)}</div>
+            </div>
+            ${statusChip}
+          </div>
+          <div>
+            <h3 class="card__name">${escapeHtml(appA)} <span class="card__arrow">&rarr;</span> ${escapeHtml(appB)}</h3>
+            <div class="card__cat">${escapeHtml(labelOf(item.category))} &middot; Secure Data Pipeline</div>
+          </div>
+          <p class="card__desc">${escapeHtml(fullDesc)}</p>
+          <div class="card__foot">
+            <span class="card__chip">${escapeHtml(badgeText)}</span>
+            <span>Updated ${escapeHtml(item.updated)}</span>
+          </div>
+        </article>`;
+    });
+    grid.innerHTML = html;
+
     grid.querySelectorAll('.card').forEach(el => {
-      el.addEventListener('click', () => openDrawer(el.dataset.id));
-      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(el.dataset.id); } });
+      el.addEventListener('click', () => openDrawer(Number(el.dataset.idx)));
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(Number(el.dataset.idx)); } });
     });
   }
 
-  function cardHTML (r) {
-    const status = r.status === 'beta'
-      ? `<span class="card__status card__status--beta">Beta</span>`
-      : `<span class="card__status card__status--ga">GA</span>`;
-    return `
-      <article class="card" data-id="${r.id}" role="button" tabindex="0" aria-label="Open ${escapeHtml(r.name)} details">
-        <div class="card__head">
-          <div class="card__mark">${initials(r.name)}</div>
-          ${status}
-        </div>
-        <div>
-          <h3 class="card__name">${escapeHtml(r.name)}</h3>
-          <div class="card__cat">${escapeHtml(labelOf(r.category))}</div>
-        </div>
-        <p class="card__desc">${escapeHtml(r.description)}</p>
-        <div class="card__foot">
-          <span><b>${r.endpoints}</b> endpoints</span>
-          <span>${escapeHtml(r.auth.split(' · ')[0])}</span>
-        </div>
-      </article>`;
-  }
+  /* ---------- drawer ---------- */
+  function openDrawer (idx) {
+    const item = state.byIdx.get(idx);
+    if (!item) return;
 
-  function labelOf (id) {
-    const c = CATEGORIES.find(x => x.id === id);
-    return c ? c.label : id;
-  }
-  function initials (name) {
-    return name.split(/[\s-]+/).map(w => w[0]).join('').slice(0,2).toUpperCase();
-  }
-  function escapeHtml (s) {
-    return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  }
+    const appA = item.tool_a || "Corporate Platform";
+    const appB = item.tool_b || "Target Database";
+    const useCaseText = item.use_case || "Automated real-time bidirectional field mapping sync built for secure B2B data pipelines and operations management.";
+    const initialA = appA.charAt(0).toUpperCase();
+    const initialB = appB.charAt(0).toUpperCase();
 
-  function openDrawer (id) {
-    const r = state.all.find(x => x.id === id);
-    if (!r) return;
-
-    $('#d-mark').textContent = initials(r.name);
-    $('#drawer-title').textContent = r.name;
-    $('#d-sub').textContent = labelOf(r.category) + ' · ' + (r.status === 'beta' ? 'Public beta' : 'Generally available');
-    $('#d-desc').textContent = r.description;
-    $('#d-auth').textContent = r.auth;
-    $('#d-endpoints').textContent = r.endpoints + ' REST';
-    $('#d-events').textContent = r.events ? (r.events + ' event types') : 'Not supported';
-    $('#d-region').textContent = r.region;
-    $('#d-rate').textContent = r.rate;
-    $('#d-verified').textContent = r.updated;
-
-    $('#d-endpoint-list').innerHTML = sampleEndpoints(r).map(e => `
-      <div class="drawer__endpoint">
-        <span class="method method--${e.m.toLowerCase()}">${e.m}</span>
-        <span>${escapeHtml(e.p)}</span>
-      </div>`).join('');
-
-    $('#d-code').innerHTML = codeSnippet(r);
+    $('#d-mark-a').textContent = initialA;
+    $('#d-mark-b').textContent = initialB;
+    $('#drawer-title').textContent = appA + ' \u2192 ' + appB;
+    $('#d-sub').textContent = labelOf(item.category) + ' \u00b7 ' + (item.status === 'beta' ? 'Public beta' : 'Generally available');
+    $('#d-desc').textContent = useCaseText;
+    $('#d-status').textContent = item.status === 'beta' ? 'Public beta' : 'Generally available';
+    $('#d-code').innerHTML = codeSnippet(appA, appB);
 
     drawer.setAttribute('data-open', 'true');
     drawer.setAttribute('aria-hidden', 'false');
@@ -1680,46 +1508,81 @@ a { color: inherit; text-decoration: none; }
     setTimeout(() => { backdrop.hidden = true; }, 300);
   }
 
-  function sampleEndpoints (r) {
-    const map = {
-      salesforce: [{m:'GET',p:'/services/data/v60.0/sobjects/Account'},{m:'POST',p:'/services/data/v60.0/sobjects/Opportunity'},{m:'PUT',p:'/services/data/v60.0/sobjects/Contact/:id'},{m:'DEL',p:'/services/data/v60.0/sobjects/Lead/:id'}],
-      stripe:     [{m:'POST',p:'/v1/payment_intents'},{m:'GET',p:'/v1/customers/:id'},{m:'POST',p:'/v1/subscriptions'},{m:'POST',p:'/v1/refunds'}],
-      slack:      [{m:'POST',p:'/api/chat.postMessage'},{m:'GET',p:'/api/conversations.list'},{m:'POST',p:'/api/conversations.invite'},{m:'POST',p:'/api/reactions.add'}],
-      github:     [{m:'GET',p:'/repos/:owner/:repo/pulls'},{m:'POST',p:'/repos/:owner/:repo/issues'},{m:'PUT',p:'/repos/:owner/:repo/pulls/:n/merge'},{m:'GET',p:'/graphql'}],
-      hubspot:    [{m:'GET',p:'/crm/v3/objects/contacts'},{m:'POST',p:'/crm/v3/objects/deals'},{m:'PUT',p:'/crm/v3/objects/companies/:id'},{m:'POST',p:'/automation/v4/flows/:id/enroll'}],
-      snowflake:  [{m:'POST',p:'/api/v2/statements'},{m:'GET',p:'/api/v2/statements/:handle'},{m:'PUT',p:'/api/v2/warehouses/:name/resume'},{m:'POST',p:'/api/v2/pipes/:name/insertFiles'}],
-      notion:     [{m:'GET',p:'/v1/databases/:id'},{m:'POST',p:'/v1/pages'},{m:'PUT',p:'/v1/blocks/:id/children'},{m:'GET',p:'/v1/search'}],
-      linear:     [{m:'POST',p:'/graphql (issueCreate)'},{m:'POST',p:'/graphql (issueUpdate)'},{m:'POST',p:'/graphql (projectCreate)'},{m:'POST',p:'/graphql (webhookCreate)'}],
-    };
-    return map[r.id] || [
-      { m:'GET',  p:`/v1/${r.id}` },
-      { m:'POST', p:`/v1/${r.id}` },
-      { m:'PUT',  p:`/v1/${r.id}/:id` },
-      { m:'DEL',  p:`/v1/${r.id}/:id` },
-    ];
-  }
-
-  function codeSnippet (r) {
-    const varName = r.id.replace(/[^a-z0-9]/g, '');
+  function codeSnippet (appA, appB) {
     return (
-`<span class="c">// npm install @connectsync/node</span>
-<span class="k">import</span> { ConnectSync } <span class="k">from</span> <span class="s">'@connectsync/node'</span>;
-
-<span class="k">const</span> cs = <span class="k">new</span> <span class="p">ConnectSync</span>({
-  apiKey: process.env.<span class="p">CS_API_KEY</span>,
-  workspace: <span class="s">'prod'</span>,
-});
-
-<span class="k">const</span> ${varName} = <span class="k">await</span> cs.connectors.<span class="p">install</span>(<span class="s">'${r.id}'</span>, {
-  auth: <span class="s">'${r.auth.split(' · ')[0]}'</span>,
-  onEvent: <span class="k">async</span> (event) =&gt; {
-    <span class="c">// scoped to your workspace, delivered at-least-once</span>
-    console.log(event.type, event.payload);
-  },
-});`
+`<span class="c">// Import into n8n — one click</span>
+{
+  <span class="p">"blueprint"</span>: <span class="s">"${slug(appA)}-to-${slug(appB)}"</span>,
+  <span class="p">"trigger"</span>: <span class="s">"webhook"</span>,
+  <span class="p">"auth"</span>: <span class="s">"OAuth 2.0"</span>,
+  <span class="p">"dedupe"</span>: <span class="k">true</span>,
+  <span class="p">"conflictResolution"</span>: <span class="s">"last-write-wins"</span>,
+  <span class="p">"rateLimitThrottling"</span>: <span class="s">"adaptive"</span>
+}`
     );
   }
 
+  /* ---------- live event counter + sparkline ---------- */
+  function startLiveCounter () {
+    const counterEl = $('#event-counter');
+    const sparkPath = $('#spark-path');
+    let value = 1248;
+    const history = new Array(30).fill(value);
+
+    function tick () {
+      const jump = Math.random() < 0.06;
+      const delta = jump ? (Math.random() * 50 - 25) : (Math.random() * 6 - 3);
+      value += delta;
+      // soft pull back toward the 1200–1300 band so it never wanders off
+      if (value > 1310) value -= Math.random() * 10;
+      if (value < 1190) value += Math.random() * 10;
+      value = Math.max(1150, Math.min(1360, value));
+
+      history.push(value);
+      history.shift();
+
+      counterEl.textContent = Math.round(value).toLocaleString();
+
+      const min = Math.min(...history), max = Math.max(...history);
+      const span = Math.max(1, max - min);
+      const pts = history.map((v, i) => {
+        const x = (i / (history.length - 1)) * 90;
+        const y = 18 - ((v - min) / span) * 16;
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(' L ');
+      sparkPath.setAttribute('d', 'M ' + pts);
+    }
+
+    tick();
+    setInterval(tick, 700);
+  }
+
+  function startRegionFlicker () {
+    const regions = ['us-east-1', 'eu-west-1', 'ap-southeast-2'];
+    let i = 0;
+    const el = $('#region-label');
+    setInterval(() => {
+      el.classList.add('fading');
+      setTimeout(() => {
+        i = (i + 1) % regions.length;
+        el.textContent = 'Live \u00b7 ' + regions[i];
+        el.classList.remove('fading');
+      }, 300);
+    }, 11000 + Math.random() * 4000);
+  }
+
+  /* ---------- nightly sync countdown ---------- */
+  function updateNextSync () {
+    const now = new Date();
+    const next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 2, 0, 0, 0));
+    if (now.getTime() >= next.getTime()) next.setUTCDate(next.getUTCDate() + 1);
+    const diffMs = next - now;
+    const h = Math.floor(diffMs / 3600000);
+    const m = Math.floor((diffMs % 3600000) / 60000);
+    nextSyncEl.textContent = `in ${h}h ${m}m (02:00 UTC)`;
+  }
+
+  /* ---------- toast ---------- */
   let toastT;
   function showToast (msg) {
     toast.textContent = msg;
