@@ -230,4 +230,30 @@ h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 4vw, 36
   async function init () {
     // Debug preview — see the real rendered states before Workflow 2 exists:
     //   vault.html?preview=single
-    //
+    //   vault.html?preview=unlimited
+    if (preview === 'single') { renderSingle(SAMPLE_SINGLE); return; }
+    if (preview === 'unlimited') { renderUnlimited(SAMPLE_UNLIMITED); return; }
+
+    if (!token) { showState('state-invalid'); return; }
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      const res = await fetch(VALIDATE_ENDPOINT + '?token=' + encodeURIComponent(token), { cache: 'no-store', signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (!res.ok) throw new Error('bad status');
+      const data = await res.json();
+      if (!data || data.valid !== true) { showState('state-invalid'); return; }
+      if (data.tier === 'single') { renderSingle(data); return; }
+      if (data.tier === 'unlimited') { renderUnlimited(data); return; }
+      showState('state-invalid');
+    } catch (_err) {
+      showState('state-invalid');
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
