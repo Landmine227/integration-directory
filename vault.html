@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your blueprint — SyncOps Registry</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --paper: #F7F5F0; --ink: #0B0F17; --ink-2: #1B2130; --rule: #E2DDD1; --rule-soft: #EDE8DC;
+  --muted: #5C6370; --accent: #2B4BFF; --accent-ink: #1B34C4; --ga: #0F7B4D; --ga-tint: #E1F1E9;
+  --white: #FFFFFF;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.55; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+.brand { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+.brand__mark { width: 22px; height: 22px; position: relative; }
+.brand__mark::before, .brand__mark::after { content: ""; position: absolute; inset: 0; border: 1.5px solid var(--ink); border-radius: 50%; }
+.brand__mark::after { transform: translateX(8px); border-color: var(--accent); mix-blend-mode: multiply; }
+.brand__word { font-weight: 600; font-size: 16px; letter-spacing: -.015em; }
+.brand__word span { color: var(--accent); }
+
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 4vw, 36px); letter-spacing: -.02em; margin: 0 0 8px; }
+.sub { color: var(--muted); font-size: 14px; margin: 0 0 36px; }
+
+.state { display: none; }
+.state.active { display: block; }
+
+.spinner { width: 22px; height: 22px; border: 2.5px solid var(--rule); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 40px auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { text-align: center; color: var(--muted); font-size: 13.5px; }
+
+.errbox { border: 1px solid var(--rule); border-radius: 8px; background: var(--white); padding: 32px; text-align: center; }
+.errbox h2 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin: 0 0 10px; }
+.errbox p { color: var(--muted); font-size: 13.5px; margin: 0 0 20px; }
+.errbox a { color: var(--accent); font-weight: 600; font-size: 13.5px; }
+
+.steps { border: 1px solid var(--rule); border-radius: 8px; background: var(--white); padding: 24px; margin-bottom: 24px; }
+.steps h3 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+.steps ol { margin: 0; padding: 0 0 0 20px; }
+.steps li { font-size: 13.5px; color: var(--ink-2); margin-bottom: 10px; line-height: 1.6; }
+.steps li b { color: var(--ink); }
+.steps kbd { font-family: var(--mono); font-size: 11.5px; background: var(--paper); border: 1px solid var(--rule); border-radius: 3px; padding: 1px 6px; }
+
+.card { border: 1px solid var(--rule); border-radius: 8px; background: var(--white); margin-bottom: 16px; overflow: hidden; }
+.card__head { padding: 16px 20px; border-bottom: 1px solid var(--rule-soft); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.card__title { font-weight: 600; font-size: 14.5px; }
+.card__desc { padding: 14px 20px 0; font-size: 13px; color: var(--muted); }
+.code { background: var(--ink); color: #D9DEE8; font-family: var(--mono); font-size: 12px; line-height: 1.6; padding: 16px 20px; margin: 14px 20px 20px; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.copybtn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 5px;
+  background: var(--accent); color: #fff; border: 0; font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: background .15s ease;
+}
+.copybtn:hover { background: var(--accent-ink); }
+.copybtn.copied { background: var(--ga); }
+
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+  background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 100px; font-size: 13px;
+  opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__word">syncops<span>&nbsp;registry</span></span>
+  </div>
+
+  <!-- LOADING -->
+  <div class="state active" id="state-loading">
+    <div class="spinner"></div>
+    <p class="loading-text">Checking your access link&hellip;</p>
+  </div>
+
+  <!-- INVALID -->
+  <div class="state" id="state-invalid">
+    <div class="errbox">
+      <h2>This link isn't working</h2>
+      <p>It may have expired, already been used to set up your workspace, or the URL was copied incorrectly. If you just purchased, check your email for the original link — otherwise reach out and we'll sort it out fast.</p>
+      <a href="mailto:support@syncopsregistry.com">Email support@syncopsregistry.com</a>
+    </div>
+  </div>
+
+  <!-- SINGLE BLUEPRINT -->
+  <div class="state" id="state-single">
+    <h1 id="single-title">Your blueprint is ready</h1>
+    <p class="sub" id="single-sub"></p>
+
+    <div class="steps">
+      <h3>Setup — takes about a minute</h3>
+      <ol>
+        <li><b>Copy your blueprint</b> using the button below.</li>
+        <li><b>Open your n8n workspace</b> and press <kbd>Ctrl+V</kbd> (<kbd>Cmd+V</kbd> on Mac) anywhere on a blank canvas. The full workflow — nodes, OAuth 2.0 settings, and field mappings — populates automatically.</li>
+        <li><b>Click into the connection nodes</b>, sign in with your account credentials when prompted, and switch the workflow to <b>Active</b>.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card__head">
+        <span class="card__title" id="single-name">&mdash;</span>
+        <button class="copybtn" id="single-copy">Copy blueprint</button>
+      </div>
+      <p class="card__desc" id="single-desc"></p>
+      <pre class="code" id="single-code"></pre>
+    </div>
+  </div>
+
+  <!-- UNLIMITED LIBRARY -->
+  <div class="state" id="state-unlimited">
+    <h1>Your blueprint library</h1>
+    <p class="sub">Every pairing you have access to. Copy any of them into your n8n canvas whenever you need it — this list updates automatically as new blueprints publish.</p>
+
+    <div class="steps">
+      <h3>Setup — same steps for any blueprint below</h3>
+      <ol>
+        <li><b>Copy a blueprint</b> using its button.</li>
+        <li><b>Open n8n</b> and press <kbd>Ctrl+V</kbd> (<kbd>Cmd+V</kbd> on Mac) on a blank canvas.</li>
+        <li><b>Connect your accounts</b> on the prompted nodes and switch the workflow to <b>Active</b>.</li>
+      </ol>
+    </div>
+
+    <div id="unlimited-list"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const VALIDATE_ENDPOINT = 'https://n8n.xtagency.space/webhook/980cd986-e18b-472b-a198-c4941998b890/validate-blueprint-access';
+
+  // Sample data for debug preview mode only — never used in the real fetch path.
+  const SAMPLE_SINGLE = {
+    valid: true, tier: 'single', pairing_label: 'HubSpot \u2192 Monday.com',
+    blueprint: {
+      pairing_label: 'HubSpot \u2192 Monday.com',
+      description: 'Preview only \u2014 real content comes from blueprint_library once Workflow 2 is live.',
+      blueprint_json: '{\n  "blueprint": "hubspot-to-monday",\n  "trigger": "webhook",\n  "auth": "OAuth 2.0",\n  "dedupe": true\n}'
+    }
+  };
+  const SAMPLE_UNLIMITED = {
+    valid: true, tier: 'unlimited',
+    blueprints: [
+      { pairing_label: 'HubSpot \u2192 Monday.com', description: 'Preview blueprint.', blueprint_json: '{ "blueprint": "hubspot-to-monday" }' },
+      { pairing_label: 'Stripe \u2192 QuickBooks', description: 'Preview blueprint.', blueprint_json: '{ "blueprint": "stripe-to-quickbooks" }' }
+    ]
+  };
+
+  const $ = (s) => document.querySelector(s);
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  const preview = params.get('preview');
+
+  function showState(id) {
+    document.querySelectorAll('.state').forEach(el => el.classList.remove('active'));
+    $('#' + id).classList.add('active');
+  }
+
+  function showToast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1600);
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard?.writeText(text).then(() => {
+      showToast('Copied to clipboard');
+      if (btn) {
+        const original = btn.textContent;
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+      }
+    });
+  }
+
+  function escapeHtml (s) {
+    return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+
+  function renderSingle (data) {
+    const bp = data.blueprint || {};
+    $('#single-sub').textContent = 'One blueprint, yours to keep and redeploy any time.';
+    $('#single-name').textContent = data.pairing_label || bp.pairing_label || 'Your pairing';
+    $('#single-desc').textContent = bp.description || '';
+    $('#single-code').textContent = bp.blueprint_json || 'Blueprint content unavailable — contact support.';
+    $('#single-copy').onclick = (e) => copyText($('#single-code').textContent, e.currentTarget);
+    showState('state-single');
+  }
+
+  function renderUnlimited (data) {
+    const list = Array.isArray(data.blueprints) ? data.blueprints : [];
+    const container = $('#unlimited-list');
+    if (!list.length) {
+      container.innerHTML = '<div class="errbox"><h2>No blueprints published yet</h2><p>New pairings publish nightly — check back soon.</p></div>';
+    } else {
+      container.innerHTML = list.map((bp, i) => `
+        <div class="card">
+          <div class="card__head">
+            <span class="card__title">${escapeHtml(bp.pairing_label || 'Untitled pairing')}</span>
+            <button class="copybtn" data-idx="${i}">Copy blueprint</button>
+          </div>
+          <p class="card__desc">${escapeHtml(bp.description || '')}</p>
+          <pre class="code">${escapeHtml(bp.blueprint_json || '')}</pre>
+        </div>`).join('');
+      container.querySelectorAll('.copybtn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = Number(e.currentTarget.dataset.idx);
+          copyText(list[idx].blueprint_json || '', e.currentTarget);
+        });
+      });
+    }
+    showState('state-unlimited');
+  }
+
+  async function init () {
+    // Debug preview — see the real rendered states before Workflow 2 exists:
+    //   vault.html?preview=single
+    //
